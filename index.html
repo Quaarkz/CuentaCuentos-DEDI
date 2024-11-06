@@ -1,11 +1,46 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CuentaCuentos</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    
+
+  <!-- Encabezado -->
+  <header>
+    <h1><a href="#">CuentaCuentos</a></h1>
+  </header>
+
+  <!-- Pregunta inicial -->
+  <section class="intro">
+    <h2>¿Qué quieres leer?</h2>
+  </section>
+
+  <!-- Sección de Tarjetas -->
+  <section class="carousel">
+    <div class="carousel-inner">
+      <div class="card">
+        <h3>Celia y Gastón sueñan con el Principito</h3>
+        <p class="age">5+ | 1h20</p>
+        <p class="description">Una adaptación original de la obra de Antoine de Saint-Exupéry...</p>
+        <button>Leer</button>
+      </div>
+      <div class="card">
+        <h3>¡Escapa de Scar!</h3>
+        <p class="age">5+ | 0h34</p>
+        <p class="description">Simba se va a convertir en el nuevo rey de las Tierras del Reino...</p>
+        <button>Leer</button>
+      </div>
+      <!-- Agregar más tarjetas si es necesario -->
+    </div>
+    <div class="carousel-controls">
+      <button id="prev">◀</button>
+      <button id="next">▶</button>
+    </div>
+  </section>
+
+  <script src="script.js"></script>
 </body>
 </html>
