@@ -1,0 +1,126 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Header */
+.header {
+    width: 100%;
+    padding: 20px;
+    background-color: #333;
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.header-title {
+    color: #fff;
+    font-size: 36px;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.header-title:hover {
+    color: #FFD700; /* Cambia a un dorado al pasar el cursor */
+}
+
+/* Contenedor principal */
+.story-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 20px;
+    height: calc(100vh - 80px); /* Resta el espacio ocupado por el header */
+    background-color: #f9f9f9;
+    font-family: Arial, sans-serif;
+    width: 100%;
+    margin: auto;
+}
+
+/* Columnas */
+.column {
+    flex: 1;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Estilo de la primera columna */
+.story-info {
+    text-align: center;
+}
+
+.story-title {
+    font-size: 36px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.story-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilo de la segunda columna */
+.story-details p {
+    font-size: 20px;
+    line-height: 1.8;
+    margin-bottom: 15px;
+    color: #555;
+    max-width: 600px;
+    margin: auto;
+}
+
+/* Estilo de la tercera columna */
+.story-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.action-button {
+    width: 90%;
+    max-width: 300px;
+    padding: 20px;
+    font-size: 24px;
+    margin: 15px 0;
+    border: none;
+    border-radius: 10px;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.read {
+    background-color: #4CAF50;
+}
+
+.listen {
+    background-color: #2196F3;
+}
+
+.action-button:hover {
+    opacity: 0.9;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .story-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .column {
+        width: 100%;
+        padding: 20px;
+    }
+
+    .action-button {
+        width: 80%;
+        font-size: 22px;
+        padding: 15px;
+    }
+}
