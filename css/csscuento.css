@@ -28,22 +28,40 @@
 /* Contenedor principal */
 .story-container {
     display: flex;
-    justify-content: space-around;
-    align-items: center;
-    padding: 20px;
+    justify-content: space-between;
+    align-items: stretch;
     height: calc(100vh - 80px);
     background-color: #f9f9f9;
     font-family: Arial, sans-serif;
-    width: 100%;
-    margin: auto;
+    padding: 20px;
 }
 
 /* Columnas */
 .column {
     flex: 1;
+    margin: 0 10px;
     padding: 20px;
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
 }
+/* Ajuste de la tercera columna para más espacio en la segunda */
+.column.story-actions {
+    flex: 0.5; /* Reducir el ancho para que ocupe la mitad del espacio */
+    background-color: transparent; /* Eliminar el fondo para que sea más limpio */
+    box-shadow: none; /* Quitar la sombra */
+    padding: 10px; /* Reducir el padding para menor separación */
+}
+
+/* Ajuste para la segunda columna con más espacio */
+.column.story-details {
+    flex: 2; /* Aumentar el ancho de esta columna */
+}
+
 
 /* Estilo de la primera columna */
 .story-info {
@@ -64,14 +82,58 @@
 }
 
 /* Estilo de la segunda columna */
-.story-details p {
-    font-size: 20px;
-    line-height: 1.8;
-    margin-bottom: 15px;
+.story-details {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.story-section {
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: #f1f1f1;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.story-section h3 {
+    margin-bottom: 10px;
+    font-size: 24px;
+    color: #333;
+}
+
+.story-section p {
+    font-size: 18px;
+    line-height: 1.5;
     color: #555;
-    max-width: 600px;
-    margin: auto;
-    white-space: normal; /* Permite que el texto use varias líneas */
+}
+
+/* Barra de duración */
+.duration-bar {
+    height: 20px;
+    width: 90%;
+    margin: 10px auto;
+    background-color: #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.duration-fill {
+    height: 100%;
+    width: 60%; /* Ejemplo: 60% de duración completada */
+    background-color: #4CAF50;
+    border-radius: 10px;
+}
+
+/* Sinopsis */
+.story-synopsis {
+    white-space: normal;
+    word-wrap: break-word;
+    max-height: 200px;
+    overflow-y: auto;
 }
 
 /* Estilo de la tercera columna */
@@ -80,14 +142,15 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    flex-grow: 1;
 }
 
 .action-button {
     width: 90%;
     max-width: 300px;
-    padding: 60px 0;  /* Incrementa la altura manteniendo el ancho */
-    font-size: 24px;
-    margin: 15px 0;
+    padding: 40px 0;
+    font-size: 20px;
+    margin: 10px 0;
     border: none;
     border-radius: 10px;
     color: #fff;
@@ -107,28 +170,57 @@
     opacity: 0.9;
 }
 
+/* Estilo para el contenedor de la información del autor */
+.author-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+/* Estilo para el texto del autor */
+.author-text {
+    flex: 2;
+    text-align: left;
+}
+
+/* Estilo para la imagen del autor */
+.author-image {
+    flex: 1;
+    max-width: 120px;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsivo: Reorganizar en pantallas pequeñas */
+@media (max-width: 768px) {
+    .author-info {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .author-image {
+        max-width: 100%;
+    }
+}
+
+
 /* Responsive */
 @media (max-width: 768px) {
     .story-container {
         flex-direction: column;
         align-items: center;
     }
-    
+
     .column {
         width: 100%;
-        padding: 20px;
-    }
-
-    .story-details p {
-        font-size: 18px;
-        white-space: nowrap;      /* Hace que el texto ocupe solo una línea */
-        overflow: hidden;         /* Oculta el texto excedente */
-        text-overflow: ellipsis;  /* Muestra puntos suspensivos (...) al final del texto */
+        margin: 10px 0;
     }
 
     .action-button {
         width: 80%;
-        font-size: 22px;
+        font-size: 18px;
         padding: 20px 0;
     }
 }
