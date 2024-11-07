@@ -187,7 +187,7 @@
 /* Estilo para la imagen del autor */
 .author-image {
     flex: 1;
-    max-width: 120px;
+    max-width: 300px;
     height: auto;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
