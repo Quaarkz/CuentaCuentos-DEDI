@@ -25,6 +25,16 @@
     color: #FFD700;
 }
 
+body {
+    background-image: url('../media/fondo.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+
+
 /* Contenedor principal */
 .story-container {
     display: flex;
@@ -34,6 +44,7 @@
     background-color: #f9f9f9;
     font-family: Arial, sans-serif;
     padding: 20px;
+    background-color: transparent;
 }
 
 /* Columnas */
@@ -49,6 +60,7 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     overflow: hidden;
 }
+
 /* Ajuste de la tercera columna para más espacio en la segunda */
 .column.story-actions {
     flex: 0.5; /* Reducir el ancho para que ocupe la mitad del espacio */
@@ -63,9 +75,10 @@
 }
 
 
-/* Estilo de la primera columna */
 .story-info {
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .story-title {
@@ -74,12 +87,14 @@
     margin-bottom: 20px;
 }
 
-.story-image {
-    max-width: 100%;
+
+.story-image { /* Empuja la imagen hacia el fondo de la columna */
+    max-width: 80%;
     height: auto;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
+
 
 /* Estilo de la segunda columna */
 .story-details {
@@ -95,7 +110,7 @@
     padding: 20px;
     background-color: #f1f1f1;
     border-radius: 8px;
-    text-align: center;
+    text-align: left;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
