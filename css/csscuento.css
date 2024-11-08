@@ -32,18 +32,16 @@ body {
     background-attachment: fixed;
 }
 
-
-
 /* Contenedor principal */
 .story-container {
     display: flex;
     justify-content: space-between;
     align-items: stretch;
-    height: calc(100vh - 80px);
-    background-color: #f9f9f9;
+    height: auto; /* Cambiado para permitir scroll en pantallas pequeñas */
     font-family: Arial, sans-serif;
     padding: 20px;
     background-color: transparent;
+    flex-wrap: wrap; /* Permitir que los elementos se ajusten automáticamente */
 }
 
 /* Columnas */
@@ -53,24 +51,20 @@ body {
     flex-direction: column;
     align-items: center;
     border-radius: 8px;
-    
     overflow: hidden;
 }
 
-/* Ajuste de la tercera columna para más espacio en la segunda */
 .column.story-actions {
-    flex: 0.5; /* Reducir el ancho para que ocupe la mitad del espacio */
-    background-color: transparent; /* Eliminar el fondo para que sea más limpio */
-    box-shadow: none; /* Quitar la sombra */
-    padding: 10px; /* Reducir el padding para menor separación */
+    flex: 0.5; /* Reducir el ancho para que ocupe menos espacio */
+    background-color: transparent; /* Eliminar fondo */
+    box-shadow: none; /* Quitar sombra */
+    padding: 10px; /* Reducir padding */
 }
 
-/* Ajuste para la segunda columna con más espacio */
 .column.story-details {
-    flex: 1.6; /* Aumentar el ancho de esta columna */
+    flex: 1.6; /* Aumentar el ancho */
     margin-right: 1.5%;
 }
-
 
 .story-info {
     display: flex;
@@ -84,13 +78,11 @@ body {
     margin-bottom: 20px;
 }
 
-
-.story-image { /* Empuja la imagen hacia el fondo de la columna */
+.story-image {
     max-width: 80%;
     height: auto;
     border-radius: 8px;
 }
-
 
 /* Estilo de la segunda columna */
 .story-details {
@@ -135,7 +127,7 @@ body {
 .duration-header {
     display: flex;
     align-items: center; /* Alinear verticalmente ambos elementos */
-    margin-bottom: 10px; /* Espaciado con la barra de duración */
+    margin-bottom: 10px;
 }
 
 .duration-header h3 {
@@ -213,40 +205,85 @@ body {
 /* Estilo para la imagen del autor */
 .author-image {
     flex: 1;
-    max-width: 300px;
-    height: auto;
+    width: 100%; /* Para que se ajuste al ancho del contenedor */
+    max-width: 300px; /* Tamaño máximo en pantallas grandes */
+    height: auto; /* Mantener la proporción de la imagen */
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    object-fit: cover; /* Ajustar la imagen sin deformarla */
 }
+
 
 /* Responsivo: Reorganizar en pantallas pequeñas */
 @media (max-width: 768px) {
+    .story-container {
+        flex-direction: column; /* Cambiar a disposición vertical */
+        align-items: stretch; /* Alinear columnas al ancho total */
+        padding: 10px;
+    }
+
+    .column {
+        width: 100%; /* Las columnas ocuparán el 100% del ancho */
+        margin-bottom: 20px;
+    }
+
+    .story-title {
+        font-size: 28px; /* Reducir tamaño del título */
+    }
+
+    .story-section {
+        padding: 15px; /* Reducir espaciado interno */
+        margin-bottom: 15px; /* Espaciado entre secciones */
+    }
+
+    .action-button {
+        width: 100%; /* Botones ajustados al ancho total */
+        font-size: 18px; /* Texto más pequeño */
+        padding: 15px 0; /* Menos padding */
+    }
+
+    .story-image {
+        max-width: 100%; /* Imagen a ancho completo */
+        height: auto;
+    }
+
     .author-info {
-        flex-direction: column;
+        flex-direction: column; /* Imagen y texto en vertical */
         align-items: center;
     }
 
     .author-image {
-        max-width: 100%;
+        width: 80%; /* Imagen al 80% del ancho */
+        max-width: 250px; /* Límite de tamaño máximo */
+        margin-bottom: 15px; /* Separación con el texto */
+    }
+
+    .author-text {
+        text-align: center; /* Centrar el texto */
     }
 }
 
-
-/* Responsive */
-@media (max-width: 768px) {
-    .story-container {
-        flex-direction: column;
-        align-items: center;
+/* Ajustes para pantallas aún más pequeñas */
+@media (max-width: 480px) {
+    .header-title {
+        font-size: 28px; /* Reducir tamaño del título principal */
     }
 
-    .column {
-        width: 100%;
-        margin: 10px 0;
+    .story-title {
+        font-size: 24px; /* Reducir el título del cuento */
     }
 
     .action-button {
-        width: 80%;
-        font-size: 18px;
-        padding: 20px 0;
+        font-size: 16px; /* Botones más pequeños */
+        padding: 10px 0;
+    }
+
+    .story-synopsis {
+        font-size: 14px; /* Texto más pequeño */
+        line-height: 1.4;
+    }
+
+    .author-image {
+        width: 90%; /* Imagen más pequeña en pantallas estrechas */
     }
 }
