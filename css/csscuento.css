@@ -135,9 +135,25 @@ body {
     overflow: hidden;
 }
 
+.duration-header {
+    display: flex;
+    align-items: center; /* Alinear verticalmente ambos elementos */
+    margin-bottom: 10px; /* Espaciado con la barra de duración */
+}
+
+.duration-header h3 {
+    margin: 0; /* Eliminar márgenes del h3 */
+}
+
+.duration-text {
+    white-space: nowrap;
+    margin: 0; /* Eliminar márgenes del span */
+    margin-left: 15px;
+}
+
 .duration-fill {
     height: 100%;
-    width: 60%; /* Ejemplo: 60% de duración completada */
+    width: 70%; /* Ejemplo: 70% de duración completada */
     background-color: #4CAF50;
     border-radius: 10px;
 }
@@ -187,7 +203,6 @@ body {
 /* Estilo para el contenedor de la información del autor */
 .author-info {
     display: flex;
-    align-items: center;
     justify-content: space-between;
     gap: 20px;
 }
