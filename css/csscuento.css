@@ -164,17 +164,26 @@ body {
     flex-grow: 1;
 }
 
+.story-actions a{
+    text-decoration: none; /* Sin subrayado */
+    color: inherit; /* Usa el color definido en el botón */
+    display: inline-block; /* Asegura que el botón respete su estilo */
+}
+
 .action-button {
-    width: 90%;
+    display: block; /* Asegura que ocupe todo el ancho disponible */
+    width: 90%; /* Igual que antes */
     max-width: 300px;
-    padding: 40px 0;
+    padding: 40px 0; /* Altura y espacio */
     font-size: 20px;
     margin: 10px 0;
-    border: none;
+    border: none; /* Sin borde */
     border-radius: 10px;
-    color: #fff;
+    text-align: center; /* Centrar texto */
+    text-decoration: none; /* Sin subrayado */
+    color: #fff !important; /* Texto blanco */
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, opacity 0.3s ease;
 }
 
 .read {
@@ -182,11 +191,21 @@ body {
 }
 
 .listen {
-    background-color: #8db62d;
+    background-color: #E14c99;
 }
 
 .action-button:hover {
-    opacity: 0.9;
+    background-color: #1c6bb0; /* Azul más oscuro para 'read' */
+    transform: scale(1.05); /* Zoom ligero */
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3); /* Sombra para resaltar el botón */
+}
+
+.read:hover {
+    background-color: #1c6bb0; /* Azul oscuro */
+}
+
+.listen:hover {
+    background-color: #b0006f; /* Rosa oscuro */
 }
 
 /* Estilo para el contenedor de la información del autor */
