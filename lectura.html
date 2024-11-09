@@ -72,10 +72,46 @@
                     showLine();
                 }
             });
-        } else {
-            pageTitle.textContent = "Página de Lectura";
-            description.textContent = "No sabemos cómo llegaste aquí, pero disfruta del cuento.";
         }
+        else if(action === 'escuchar'){
+            pageTitle.textContent = "Escucha del Cuento";
+            description.textContent = "Aquí tienes la historia de Cenicienta:";
+        }
+        else {
+            pageTitle.textContent = "Página de Lectura";
+            description.textContent = "No sabemos cómo llegaste aquí, así que elige si leer o escuchar el cuento.";
+
+            prevButton.style.display = 'none';
+            nextButton.style.display = 'none';
+
+            // Crear contenedor para los botones
+            const buttonContainer = document.createElement('div');
+            buttonContainer.id = 'choice-buttons';
+
+            // Crear botón "Leer"
+            const readButton = document.createElement('button');
+            readButton.textContent = 'Leer Cuento';
+            readButton.classList.add('action-button', 'read');
+            readButton.addEventListener('click', () => {
+                window.location.href = 'lectura.html?action=leer';
+            });
+
+            // Crear botón "Escuchar"
+            const listenButton = document.createElement('button');
+            listenButton.textContent = 'Escuchar Cuento';
+            listenButton.classList.add('action-button', 'listen');
+            listenButton.addEventListener('click', () => {
+                window.location.href = 'lectura.html?action=escuchar';
+            });
+
+            // Añadir botones al contenedor
+            buttonContainer.appendChild(readButton);
+            buttonContainer.appendChild(listenButton);
+
+            // Añadir contenedor al DOM
+            description.after(buttonContainer);
+        }
+
     </script>
 </body>
 </html>

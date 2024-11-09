@@ -54,3 +54,33 @@ button:disabled {
     background-color: #b3cde0;
     cursor: not-allowed;
 }
+
+#choice-buttons {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.action-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #3c8dd8;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.action-button.read:hover {
+    background-color: #2a6ca8;
+}
+
+.action-button.listen {
+    background-color: #E14c99;
+}
+
+.action-button.listen:hover {
+    background-color: #b23875;
+}
