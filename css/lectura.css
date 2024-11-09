@@ -1,0 +1,56 @@
+/* Estilo para la cabecera */
+.header {
+    text-align: center;
+    background-color: #504d4d;
+    padding: 20px;
+}
+
+.header-title {
+    color: #fff;
+    font-size: 36px;
+    text-decoration: none;
+}
+
+.header-title:hover {
+    color: #FFD700;
+}
+
+/* Estilo principal */
+main {
+    text-align: center;
+    padding: 20px;
+}
+
+#story-content {
+    white-space: pre-wrap;
+    margin-top: 20px;
+    font-size: 18px;
+    text-align: center;
+}
+
+#navigation-buttons {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #3c8dd8;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #2a6ca8;
+}
+
+button:disabled {
+    background-color: #b3cde0;
+    cursor: not-allowed;
+}

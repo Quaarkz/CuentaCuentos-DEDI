@@ -3,13 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Lectura</title>
     <link rel="stylesheet" href="css/lectura.css">
 </head>
 <body>
     <header class="header">
         <a href="index.html" class="header-title">Cuentacuentos</a>
     </header>
-    
+    <main>
+        <h1 id="page-title"></h1>
+        <p id="description"></p>
+        <div id="story-content"></div>
+        <div id="navigation-buttons">
+            <button id="prev-button" disabled>Atrás</button>
+            <button id="next-button">Siguiente</button>
+        </div>
+    </main>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const action = params.get('action');
+
+        const pageTitle = document.getElementById('page-title');
+        const description = document.getElementById('description');
+        const storyContent = document.getElementById('story-content');
+        const prevButton = document.getElementById('prev-button');
+        const nextButton = document.getElementById('next-button');
+
+        let storyLines = [];
+        let currentIndex = 0;
+
+        if (action === 'leer') {
+            pageTitle.textContent = "Lectura del Cuento";
+            description.textContent = "Aquí tienes la historia de Cenicienta:";
+
+            fetch('Cenicienta.txt')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('No se pudo cargar el cuento.');
+                    }
+                    return response.text();
+                })
+                .then(data => {
+                    storyLines = data.split('\n');
+                    showLine();
+                })
+                .catch(error => {
+                    storyContent.textContent = 'Error al cargar el cuento. Por favor, inténtalo más tarde.';
+                    console.error(error);
+                });
+
+            function showLine() {
+                storyContent.textContent = storyLines[currentIndex];
+                prevButton.disabled = currentIndex === 0;
+                nextButton.disabled = currentIndex === storyLines.length - 1;
+            }
+
+            prevButton.addEventListener('click', () => {
+                if (currentIndex > 0) {
+                    currentIndex--;
+                    showLine();
+                }
+            });
+
+            nextButton.addEventListener('click', () => {
+                if (currentIndex < storyLines.length - 1) {
+                    currentIndex++;
+                    showLine();
+                }
+            });
+        } else {
+            pageTitle.textContent = "Página de Lectura";
+            description.textContent = "No sabemos cómo llegaste aquí, pero disfruta del cuento.";
+        }
+    </script>
 </body>
 </html>
