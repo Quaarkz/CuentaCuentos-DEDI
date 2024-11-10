@@ -109,7 +109,7 @@
                 let utterance = null;
 
                 // Cargar el texto de Cenicienta.txt
-                fetch('Cenicienta.txt')
+                fetch('CenicientaPrueba.txt')
                     .then(response => response.text())
                     .then(data => {
                         textoContenedor.textContent = data; // Mostrar el texto en la página
@@ -118,32 +118,43 @@
 
                 // Manejar el botón Play
                 playButton.addEventListener('click', function () {
-                    const texto = textoContenedor.textContent.trim();
+    const texto = textoContenedor.textContent.trim();
 
-                    if (texto) {
-                        // Crear un nuevo objeto SpeechSynthesisUtterance si no existe o si se detuvo
-                        if (!utterance || speechSynthesis.paused || !speechSynthesis.speaking) {
-                            utterance = new SpeechSynthesisUtterance(texto);
-                            const spanishVoice = voices.find(voice => voice.lang === 'es-ES');
-                            utterance.voice = spanishVoice || voices[0];
-                            utterance.lang = "es-ES";
+    if (texto) {
+        // Cargar las voces disponibles
+        const voices = speechSynthesis.getVoices();
 
-                            // Iniciar síntesis de voz
-                            console.log(utterance);
-                            utterance.onstart = () => {
-                                console.log("La lectura ha comenzado.");
-                            };
+        // Buscar la voz de Elvira que es la top rated. Esta es increible pero solo funciona en edge
+        const elviraVoice = voices.find(
+            voice => voice.name === 'Microsoft Elvira Online (Natural) - Spanish (Spain)'
+        );
 
-                            utterance.onend = () => {
-                                console.log("La lectura ha terminado.");
-                            };
-                            speechSynthesis.cancel();
-                            speechSynthesis.speak(utterance);
-                        }
-                    } else {
-                        alert('No se pudo cargar el texto.');
-                    }
-                });
+        // Crear un nuevo objeto SpeechSynthesisUtterance si no existe o si se detuvo
+        if (!utterance || speechSynthesis.paused || !speechSynthesis.speaking) {
+            utterance = new SpeechSynthesisUtterance(texto);
+
+            // Asignar la voz encontrada o una predeterminada
+            utterance.voice = elviraVoice || voices.find(voice => voice.lang === 'es-ES') || voices[0];
+            utterance.lang = "es-ES";
+
+            // Iniciar síntesis de voz
+            console.log("Usando voz:", utterance.voice.name);
+            utterance.onstart = () => {
+                console.log("La lectura ha comenzado.");
+            };
+
+            utterance.onend = () => {
+                console.log("La lectura ha terminado.");
+            };
+
+            speechSynthesis.cancel();
+            speechSynthesis.speak(utterance);
+        }
+    } else {
+        alert('No se pudo cargar el texto.');
+    }
+});
+
 
                 // Manejar el botón Pause
                 pauseButton.addEventListener('click', function () {
