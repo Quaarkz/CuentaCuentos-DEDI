@@ -14,6 +14,14 @@
         <h1 id="page-title"></h1>
         <p id="description"></p>
         <div id="story-content"></div>
+        <div id="escuchar-container">
+            <div id="texto-contenedor"></div>
+            <div id="controls">
+                <button id="btnPlay" class="action-button play">Play</button>
+                <button id="btnPause" class="action-button pause">Pause</button>
+            </div>
+        </div>
+        
         <div id="navigation-buttons">
             <button id="prev-button" disabled>Atrás</button>
             <button id="next-button">Siguiente</button>
@@ -29,13 +37,27 @@
         const storyContent = document.getElementById('story-content');
         const prevButton = document.getElementById('prev-button');
         const nextButton = document.getElementById('next-button');
+        const escucharContainer = document.getElementById('escuchar-container');
 
         let storyLines = [];
         let currentIndex = 0;
 
+        // Cargar las voces solo cuando estén disponibles
+        let voices = [];
+        function loadVoices() {
+            voices = speechSynthesis.getVoices();
+            if (voices.length === 0) {
+                speechSynthesis.addEventListener('voiceschanged', function() {
+                    voices = speechSynthesis.getVoices();
+                });
+            }
+        }
+
         if (action === 'leer') {
             pageTitle.textContent = "Lectura del Cuento";
             description.textContent = "Aquí tienes la historia de Cenicienta:";
+
+            escucharContainer.style.display = 'none';
 
             fetch('Cenicienta.txt')
                 .then(response => {
@@ -73,13 +95,71 @@
                 }
             });
         }
-        else if(action === 'escuchar'){
+        else if(action === 'escuchar') {
             pageTitle.textContent = "Escucha del Cuento";
             description.textContent = "Aquí tienes la historia de Cenicienta:";
+
+            // Cargar las voces primero
+            loadVoices();
+
+            document.addEventListener('DOMContentLoaded', function () {
+                const playButton = document.getElementById('btnPlay');
+                const pauseButton = document.getElementById('btnPause');
+                const textoContenedor = document.getElementById('texto-contenedor');
+                let utterance = null;
+
+                // Cargar el texto de Cenicienta.txt
+                fetch('CenicientaPrueba.txt')
+                    .then(response => response.text())
+                    .then(data => {
+                        textoContenedor.textContent = data; // Mostrar el texto en la página
+                    })
+                    .catch(error => console.error('Error al cargar el texto:', error));
+
+                // Manejar el botón Play
+                playButton.addEventListener('click', function () {
+                    const texto = textoContenedor.textContent.trim();
+
+                    if (texto) {
+                        // Crear un nuevo objeto SpeechSynthesisUtterance si no existe o si se detuvo
+                        if (!utterance || speechSynthesis.paused || !speechSynthesis.speaking) {
+                            utterance = new SpeechSynthesisUtterance(texto);
+                            const spanishVoice = voices.find(voice => voice.lang === 'es-ES');
+                            utterance.voice = spanishVoice || voices[0];
+                            utterance.lang = "es-ES";
+
+                            // Iniciar síntesis de voz
+                            console.log(utterance);
+                            utterance.onstart = () => {
+                                console.log("La lectura ha comenzado.");
+                            };
+
+                            utterance.onend = () => {
+                                console.log("La lectura ha terminado.");
+                            };
+                            speechSynthesis.cancel();
+                            speechSynthesis.speak(utterance);
+                        }
+                    } else {
+                        alert('No se pudo cargar el texto.');
+                    }
+                });
+
+                // Manejar el botón Pause
+                pauseButton.addEventListener('click', function () {
+                    if (speechSynthesis.speaking && !speechSynthesis.paused) {
+                        speechSynthesis.pause(); // Pausar la lectura
+                    } else if (speechSynthesis.paused) {
+                        speechSynthesis.resume(); // Reanudar la lectura
+                    }
+                });
+            });
+
         }
         else {
             pageTitle.textContent = "Página de Lectura";
             description.textContent = "No sabemos cómo llegaste aquí, así que elige si leer o escuchar el cuento.";
+            escucharContainer.style.display = 'none';
 
             prevButton.style.display = 'none';
             nextButton.style.display = 'none';

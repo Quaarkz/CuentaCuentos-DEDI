@@ -84,3 +84,16 @@ button:disabled {
 .action-button.listen:hover {
     background-color: #b23875;
 }
+
+#texto-contenedor p {
+    margin: 10px 0;
+    color: #333;
+    font-size: 18px;
+    line-height: 1.6;
+    transition: all 0.3s ease;
+}
+
+#texto-contenedor p.bold {
+    color: #E14c99;
+    font-weight: bold;
+}
