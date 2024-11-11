@@ -29,180 +29,98 @@
     </main>
 
     <script>
-        const params = new URLSearchParams(window.location.search);
-        const action = params.get('action');
+        document.addEventListener('DOMContentLoaded', function () {
+            const playButton = document.getElementById('btnPlay');
+            const pauseButton = document.getElementById('btnPause');
+            const textoContenedor = document.getElementById('texto-contenedor');
+            let storyLines = [];
+            let currentIndex = 0;
+            let utterance = null;
 
-        const pageTitle = document.getElementById('page-title');
-        const description = document.getElementById('description');
-        const storyContent = document.getElementById('story-content');
-        const prevButton = document.getElementById('prev-button');
-        const nextButton = document.getElementById('next-button');
-        const escucharContainer = document.getElementById('escuchar-container');
-
-        let storyLines = [];
-        let currentIndex = 0;
-
-        // Cargar las voces solo cuando estén disponibles
-        let voices = [];
-        function loadVoices() {
-            voices = speechSynthesis.getVoices();
-            if (voices.length === 0) {
-                speechSynthesis.addEventListener('voiceschanged', function() {
-                    voices = speechSynthesis.getVoices();
+            // Cargar voces disponibles
+            function loadVoices() {
+                return new Promise(resolve => {
+                    const voices = speechSynthesis.getVoices();
+                    if (voices.length > 0) {
+                        resolve(voices);
+                    } else {
+                        speechSynthesis.onvoiceschanged = () => resolve(speechSynthesis.getVoices());
+                    }
                 });
             }
-        }
 
-        if (action === 'leer') {
-            pageTitle.textContent = "Lectura del Cuento";
-            description.textContent = "Aquí tienes la historia de Cenicienta:";
+            // Actualizar línea visible en la pantalla
+            function updateVisibleLine() {
+                textoContenedor.textContent = storyLines[currentIndex];
+            }
 
-            escucharContainer.style.display = 'none';
+            // Manejar la lectura de líneas
+            function readLine(voices) {
+                if (currentIndex < storyLines.length) {
+                    utterance = new SpeechSynthesisUtterance(storyLines[currentIndex]);
+                    const elviraVoice = voices.find(
+                        voice => voice.name === 'Microsoft Elvira Online (Natural) - Spanish (Spain)'
+                    );
+                    utterance.voice = elviraVoice || voices.find(voice => voice.lang === 'es-ES') || voices[0];
+                    utterance.lang = "es-ES";
 
+                    // Actualizar línea visible cuando inicie
+                    utterance.onstart = () => {
+                        updateVisibleLine();
+                        console.log(`Leyendo línea ${currentIndex + 1}: ${storyLines[currentIndex]}`);
+                    };
+
+                    // Pasar a la siguiente línea al finalizar
+                    utterance.onend = () => {
+                        currentIndex++;
+                        if (currentIndex < storyLines.length) {
+                            readLine(voices);
+                        } else {
+                            console.log("Lectura completa.");
+                        }
+                    };
+
+                    // Leer la línea actual
+                    // Si deja de funcionar en Chrome añadir speechSynthesis.cancel()
+                    speechSynthesis.speak(utterance);
+                }
+            }
+
+            // Pausar o reanudar la lectura
+            pauseButton.addEventListener('click', function () {
+                if (speechSynthesis.speaking) {
+                    if (speechSynthesis.paused) {
+                        speechSynthesis.resume();
+                    } else {
+                        speechSynthesis.pause();
+                    }
+                }
+            });
+
+            // Manejar el botón Play
+            playButton.addEventListener('click', async function () {
+                if (speechSynthesis.speaking) {
+                    speechSynthesis.cancel(); // Reinicia la lectura //Sin esto no funciona fuera de Edge
+                }
+
+                // Cargar las voces
+                const voices = await loadVoices();
+
+                // Comenzar la lectura
+                currentIndex = 0; // Reiniciar índice
+                readLine(voices);
+            });
+
+            // Cargar el texto de Cenicienta.txt
             fetch('Cenicienta.txt')
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('No se pudo cargar el cuento.');
-                    }
-                    return response.text();
-                })
+                .then(response => response.text())
                 .then(data => {
-                    storyLines = data.split('\n');
-                    showLine();
+                    storyLines = data.split('\n').filter(line => line.trim() !== ''); // Filtrar líneas vacías
+                    currentIndex = 0;
+                    updateVisibleLine(); // Mostrar la primera línea en pantalla
                 })
-                .catch(error => {
-                    storyContent.textContent = 'Error al cargar el cuento. Por favor, inténtalo más tarde.';
-                    console.error(error);
-                });
-
-            function showLine() {
-                storyContent.textContent = storyLines[currentIndex];
-                prevButton.disabled = currentIndex === 0;
-                nextButton.disabled = currentIndex === storyLines.length - 1;
-            }
-
-            prevButton.addEventListener('click', () => {
-                if (currentIndex > 0) {
-                    currentIndex--;
-                    showLine();
-                }
-            });
-
-            nextButton.addEventListener('click', () => {
-                if (currentIndex < storyLines.length - 1) {
-                    currentIndex++;
-                    showLine();
-                }
-            });
-        }
-        else if(action === 'escuchar') {
-            pageTitle.textContent = "Escucha del Cuento";
-            description.textContent = "Aquí tienes la historia de Cenicienta:";
-
-            // Cargar las voces primero
-            loadVoices();
-
-            document.addEventListener('DOMContentLoaded', function () {
-                const playButton = document.getElementById('btnPlay');
-                const pauseButton = document.getElementById('btnPause');
-                const textoContenedor = document.getElementById('texto-contenedor');
-                let utterance = null;
-
-                // Cargar el texto de Cenicienta.txt
-                fetch('CenicientaPrueba.txt')
-                    .then(response => response.text())
-                    .then(data => {
-                        textoContenedor.textContent = data; // Mostrar el texto en la página
-                    })
-                    .catch(error => console.error('Error al cargar el texto:', error));
-
-                // Manejar el botón Play
-                playButton.addEventListener('click', function () {
-    const texto = textoContenedor.textContent.trim();
-
-    if (texto) {
-        // Cargar las voces disponibles
-        const voices = speechSynthesis.getVoices();
-
-        // Buscar la voz de Elvira que es la top rated. Esta es increible pero solo funciona en edge
-        const elviraVoice = voices.find(
-            voice => voice.name === 'Microsoft Elvira Online (Natural) - Spanish (Spain)'
-        );
-
-        // Crear un nuevo objeto SpeechSynthesisUtterance si no existe o si se detuvo
-        if (!utterance || speechSynthesis.paused || !speechSynthesis.speaking) {
-            utterance = new SpeechSynthesisUtterance(texto);
-
-            // Asignar la voz encontrada o una predeterminada
-            utterance.voice = elviraVoice || voices.find(voice => voice.lang === 'es-ES') || voices[0];
-            utterance.lang = "es-ES";
-
-            // Iniciar síntesis de voz
-            console.log("Usando voz:", utterance.voice.name);
-            utterance.onstart = () => {
-                console.log("La lectura ha comenzado.");
-            };
-
-            utterance.onend = () => {
-                console.log("La lectura ha terminado.");
-            };
-
-            speechSynthesis.cancel();
-            speechSynthesis.speak(utterance);
-        }
-    } else {
-        alert('No se pudo cargar el texto.');
-    }
-});
-
-
-                // Manejar el botón Pause
-                pauseButton.addEventListener('click', function () {
-                    if (speechSynthesis.speaking && !speechSynthesis.paused) {
-                        speechSynthesis.pause(); // Pausar la lectura
-                    } else if (speechSynthesis.paused) {
-                        speechSynthesis.resume(); // Reanudar la lectura
-                    }
-                });
-            });
-
-        }
-        else {
-            pageTitle.textContent = "Página de Lectura";
-            description.textContent = "No sabemos cómo llegaste aquí, así que elige si leer o escuchar el cuento.";
-            escucharContainer.style.display = 'none';
-
-            prevButton.style.display = 'none';
-            nextButton.style.display = 'none';
-
-            // Crear contenedor para los botones
-            const buttonContainer = document.createElement('div');
-            buttonContainer.id = 'choice-buttons';
-
-            // Crear botón "Leer"
-            const readButton = document.createElement('button');
-            readButton.textContent = 'Leer Cuento';
-            readButton.classList.add('action-button', 'read');
-            readButton.addEventListener('click', () => {
-                window.location.href = 'lectura.html?action=leer';
-            });
-
-            // Crear botón "Escuchar"
-            const listenButton = document.createElement('button');
-            listenButton.textContent = 'Escuchar Cuento';
-            listenButton.classList.add('action-button', 'listen');
-            listenButton.addEventListener('click', () => {
-                window.location.href = 'lectura.html?action=escuchar';
-            });
-
-            // Añadir botones al contenedor
-            buttonContainer.appendChild(readButton);
-            buttonContainer.appendChild(listenButton);
-
-            // Añadir contenedor al DOM
-            description.after(buttonContainer);
-        }
-
+                .catch(error => console.error('Error al cargar el texto:', error));
+        });
     </script>
 </body>
 </html>
