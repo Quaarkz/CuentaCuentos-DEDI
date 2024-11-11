@@ -39,6 +39,7 @@
         const nextButton = document.getElementById('next-button');
         const escucharContainer = document.getElementById('escuchar-container');
         const textoContenedor = document.getElementById('texto-contenedor');
+        const navigationContainer = document.getElementById('navigation-buttons');
         let storyLines = [];
         let currentIndex = 0;
         let utterance = null;
@@ -92,69 +93,70 @@
             });
         }
         else if (action === 'escuchar') {
-    pageTitle.textContent = "Escucha del Cuento";
-    description.textContent = "Aquí tienes la historia de Cenicienta:";
+            pageTitle.textContent = "Escucha del Cuento";
+            description.textContent = "Aquí tienes la historia de Cenicienta:";
+            navigationContainer.style.display = 'none';
 
-    fetch('Cenicienta.txt')
-        .then(response => response.text())
-        .then(async data => {
-            storyLines = data.split('\n').filter(line => line.trim() !== ''); // Filtrar líneas vacías
-            currentIndex = 0;
-            textoContenedor.textContent = storyLines[currentIndex]; // Mostrar la primera línea
-            const voices = await loadVoices();
+            fetch('Cenicienta.txt')
+                .then(response => response.text())
+                .then(async data => {
+                    storyLines = data.split('\n').filter(line => line.trim() !== ''); // Filtrar líneas vacías
+                    currentIndex = 0;
+                    textoContenedor.textContent = storyLines[currentIndex]; // Mostrar la primera línea
+                    const voices = await loadVoices();
 
-            let utterance = null;
+                    let utterance = null;
 
-            const playLine = () => {
-                if (currentIndex < storyLines.length) {
-                    // Configurar la síntesis para la línea actual
-                    utterance = new SpeechSynthesisUtterance(storyLines[currentIndex]);
-                    utterance.lang = "es-ES";
-                    utterance.voice = voices.find(voice => voice.name === 'Microsoft Elvira Online (Natural) - Spanish (Spain)')
-                        || voices.find(voice => voice.lang === 'es-ES') || voices[0];
-
-                    // Mostrar la línea actual
-                    textoContenedor.textContent = storyLines[currentIndex];
-
-                    // Al terminar de leer esta línea, pasar a la siguiente
-                    utterance.onend = () => {
-                        currentIndex++;
+                    const playLine = () => {
                         if (currentIndex < storyLines.length) {
-                            playLine(); // Leer la siguiente línea
-                        } else {
-                            textoContenedor.textContent = "Lectura finalizada.";
+                            // Configurar la síntesis para la línea actual
+                            utterance = new SpeechSynthesisUtterance(storyLines[currentIndex]);
+                            utterance.lang = "es-ES";
+                            utterance.voice = voices.find(voice => voice.name === 'Microsoft Elvira Online (Natural) - Spanish (Spain)')
+                                || voices.find(voice => voice.lang === 'es-ES') || voices[0];
+
+                            // Mostrar la línea actual
+                            textoContenedor.textContent = storyLines[currentIndex];
+
+                            // Al terminar de leer esta línea, pasar a la siguiente
+                            utterance.onend = () => {
+                                currentIndex++;
+                                if (currentIndex < storyLines.length) {
+                                    playLine(); // Leer la siguiente línea
+                                } else {
+                                    textoContenedor.textContent = "Lectura finalizada.";
+                                }
+                            };
+
+                            // Iniciar la lectura de la línea actual
+                            speechSynthesis.speak(utterance);
                         }
                     };
 
-                    // Iniciar la lectura de la línea actual
-                    speechSynthesis.speak(utterance);
-                }
-            };
+                    // Botón Play
+                    document.getElementById('btnPlay').addEventListener('click', () => {
+                        if (speechSynthesis.speaking) {
+                            speechSynthesis.cancel(); // Cancelar cualquier lectura previa
+                        }
+                        playLine(); // Comenzar o reanudar desde la línea actual
+                    });
 
-            // Botón Play
-            document.getElementById('btnPlay').addEventListener('click', () => {
-                if (speechSynthesis.speaking) {
-                    speechSynthesis.cancel(); // Cancelar cualquier lectura previa
-                }
-                playLine(); // Comenzar o reanudar desde la línea actual
-            });
-
-            // Botón Pause
-            document.getElementById('btnPause').addEventListener('click', () => {
-                if (speechSynthesis.speaking) {
-                    if (speechSynthesis.paused) {
-                        speechSynthesis.resume();
-                    } else {
-                        speechSynthesis.pause();
-                    }
-                }
-            });
-        })
-        .catch(error => {
-            textoContenedor.textContent = 'Error al cargar el texto. Por favor, inténtalo más tarde.';
-            console.error(error);
-        });
-}
+                    // Botón Pause
+                    document.getElementById('btnPause').addEventListener('click', () => {
+                        if (speechSynthesis.speaking) {
+                            if (speechSynthesis.paused) {
+                                speechSynthesis.resume();
+                            } else {
+                                speechSynthesis.pause();
+                            }
+                        }
+                    });
+                })
+                .catch(error => {
+                    textoContenedor.textContent = 'Error al cargar el texto. Por favor, inténtalo más tarde.';
+                    console.error(error);
+                });
+        }
 
 
         else {
