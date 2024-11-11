@@ -24,70 +24,123 @@
         
         <div id="navigation-buttons">
             <button id="prev-button" disabled>Atrás</button>
-            <button id="next-button">Siguiente</button>
+            <button id="next-button" disabled>Siguiente</button>
         </div>
     </main>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const playButton = document.getElementById('btnPlay');
-            const pauseButton = document.getElementById('btnPause');
-            const textoContenedor = document.getElementById('texto-contenedor');
-            let storyLines = [];
-            let currentIndex = 0;
+        const params = new URLSearchParams(window.location.search);
+        const action = params.get('action');
+
+        const pageTitle = document.getElementById('page-title');
+        const description = document.getElementById('description');
+        const storyContent = document.getElementById('story-content');
+        const prevButton = document.getElementById('prev-button');
+        const nextButton = document.getElementById('next-button');
+        const escucharContainer = document.getElementById('escuchar-container');
+        const textoContenedor = document.getElementById('texto-contenedor');
+        let storyLines = [];
+        let currentIndex = 0;
+        let utterance = null;
+
+        // Cargar las voces disponibles
+        function loadVoices() {
+            return new Promise(resolve => {
+                const voices = speechSynthesis.getVoices();
+                if (voices.length > 0) {
+                    resolve(voices);
+                } else {
+                    speechSynthesis.onvoiceschanged = () => resolve(speechSynthesis.getVoices());
+                }
+            });
+        }
+
+        if (action === 'leer') {
+            pageTitle.textContent = "Lectura del Cuento";
+            description.textContent = "Aquí tienes la historia de Cenicienta:";
+            escucharContainer.style.display = 'none';
+
+            fetch('Cenicienta.txt')
+                .then(response => response.text())
+                .then(data => {
+                    storyLines = data.split('\n').filter(line => line.trim() !== ''); // Filtrar líneas vacías
+                    showLine();
+                })
+                .catch(error => {
+                    storyContent.textContent = 'Error al cargar el cuento. Por favor, inténtalo más tarde.';
+                    console.error(error);
+                });
+
+            function showLine() {
+                storyContent.textContent = storyLines[currentIndex];
+                prevButton.disabled = currentIndex === 0;
+                nextButton.disabled = currentIndex === storyLines.length - 1;
+            }
+
+            prevButton.addEventListener('click', () => {
+                if (currentIndex > 0) {
+                    currentIndex--;
+                    showLine();
+                }
+            });
+
+            nextButton.addEventListener('click', () => {
+                if (currentIndex < storyLines.length - 1) {
+                    currentIndex++;
+                    showLine();
+                }
+            });
+        }
+        else if (action === 'escuchar') {
+    pageTitle.textContent = "Escucha del Cuento";
+    description.textContent = "Aquí tienes la historia de Cenicienta:";
+
+    fetch('Cenicienta.txt')
+        .then(response => response.text())
+        .then(async data => {
+            storyLines = data.split('\n').filter(line => line.trim() !== ''); // Filtrar líneas vacías
+            currentIndex = 0;
+            textoContenedor.textContent = storyLines[currentIndex]; // Mostrar la primera línea
+            const voices = await loadVoices();
+
             let utterance = null;
 
-            // Cargar voces disponibles
-            function loadVoices() {
-                return new Promise(resolve => {
-                    const voices = speechSynthesis.getVoices();
-                    if (voices.length > 0) {
-                        resolve(voices);
-                    } else {
-                        speechSynthesis.onvoiceschanged = () => resolve(speechSynthesis.getVoices());
-                    }
-                });
-            }
-
-            // Actualizar línea visible en la pantalla
-            function updateVisibleLine() {
-                textoContenedor.textContent = storyLines[currentIndex];
-            }
-
-            // Manejar la lectura de líneas
-            function readLine(voices) {
+            const playLine = () => {
                 if (currentIndex < storyLines.length) {
+                    // Configurar la síntesis para la línea actual
                     utterance = new SpeechSynthesisUtterance(storyLines[currentIndex]);
-                    const elviraVoice = voices.find(
-                        voice => voice.name === 'Microsoft Elvira Online (Natural) - Spanish (Spain)'
-                    );
-                    utterance.voice = elviraVoice || voices.find(voice => voice.lang === 'es-ES') || voices[0];
                     utterance.lang = "es-ES";
+                    utterance.voice = voices.find(voice => voice.name === 'Microsoft Elvira Online (Natural) - Spanish (Spain)')
+                        || voices.find(voice => voice.lang === 'es-ES') || voices[0];
 
-                    // Actualizar línea visible cuando inicie
-                    utterance.onstart = () => {
-                        updateVisibleLine();
-                        console.log(`Leyendo línea ${currentIndex + 1}: ${storyLines[currentIndex]}`);
-                    };
+                    // Mostrar la línea actual
+                    textoContenedor.textContent = storyLines[currentIndex];
 
-                    // Pasar a la siguiente línea al finalizar
+                    // Al terminar de leer esta línea, pasar a la siguiente
                     utterance.onend = () => {
                         currentIndex++;
                         if (currentIndex < storyLines.length) {
-                            readLine(voices);
+                            playLine(); // Leer la siguiente línea
                         } else {
-                            console.log("Lectura completa.");
+                            textoContenedor.textContent = "Lectura finalizada.";
                         }
                     };
 
-                    // Leer la línea actual
-                    // Si deja de funcionar en Chrome añadir speechSynthesis.cancel()
+                    // Iniciar la lectura de la línea actual
                     speechSynthesis.speak(utterance);
                 }
-            }
+            };
 
-            // Pausar o reanudar la lectura
-            pauseButton.addEventListener('click', function () {
+            // Botón Play
+            document.getElementById('btnPlay').addEventListener('click', () => {
+                if (speechSynthesis.speaking) {
+                    speechSynthesis.cancel(); // Cancelar cualquier lectura previa
+                }
+                playLine(); // Comenzar o reanudar desde la línea actual
+            });
+
+            // Botón Pause
+            document.getElementById('btnPause').addEventListener('click', () => {
                 if (speechSynthesis.speaking) {
                     if (speechSynthesis.paused) {
                         speechSynthesis.resume();
@@ -96,31 +149,42 @@
                     }
                 }
             });
+        })
+        .catch(error => {
+            textoContenedor.textContent = 'Error al cargar el texto. Por favor, inténtalo más tarde.';
+            console.error(error);
+        });
+}
 
-            // Manejar el botón Play
-            playButton.addEventListener('click', async function () {
-                if (speechSynthesis.speaking) {
-                    speechSynthesis.cancel(); // Reinicia la lectura //Sin esto no funciona fuera de Edge
-                }
 
-                // Cargar las voces
-                const voices = await loadVoices();
+        else {
+            pageTitle.textContent = "Página de Lectura";
+            description.textContent = "Elige si deseas leer o escuchar el cuento:";
+            escucharContainer.style.display = 'none';
+            prevButton.style.display = 'none';
+            nextButton.style.display = 'none';
 
-                // Comenzar la lectura
-                currentIndex = 0; // Reiniciar índice
-                readLine(voices);
+            const buttonContainer = document.createElement('div');
+            buttonContainer.id = 'choice-buttons';
+
+            const readButton = document.createElement('button');
+            readButton.textContent = 'Leer Cuento';
+            readButton.classList.add('action-button', 'read');
+            readButton.addEventListener('click', () => {
+                window.location.href = 'lectura.html?action=leer';
             });
 
-            // Cargar el texto de Cenicienta.txt
-            fetch('Cenicienta.txt')
-                .then(response => response.text())
-                .then(data => {
-                    storyLines = data.split('\n').filter(line => line.trim() !== ''); // Filtrar líneas vacías
-                    currentIndex = 0;
-                    updateVisibleLine(); // Mostrar la primera línea en pantalla
-                })
-                .catch(error => console.error('Error al cargar el texto:', error));
-        });
+            const listenButton = document.createElement('button');
+            listenButton.textContent = 'Escuchar Cuento';
+            listenButton.classList.add('action-button', 'listen');
+            listenButton.addEventListener('click', () => {
+                window.location.href = 'lectura.html?action=escuchar';
+            });
+
+            buttonContainer.appendChild(readButton);
+            buttonContainer.appendChild(listenButton);
+            description.after(buttonContainer);
+        }
     </script>
 </body>
 </html>
