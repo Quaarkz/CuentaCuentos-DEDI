@@ -90,6 +90,7 @@
             });
 
             nextButton.addEventListener('click', () => {
+                description.style.display = "none"
                 if (currentIndex < storyLines.length - 1) {
                     currentIndex++;
                     showLine();

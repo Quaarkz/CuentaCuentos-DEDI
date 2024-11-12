@@ -22,7 +22,7 @@ main {
 #story-content {
     white-space: pre-wrap;
     margin-top: 20px;
-    font-size: 18px;
+    font-size: 24px;
     text-align: center;
 }
 
@@ -97,22 +97,14 @@ button:disabled {
 .action-button.pause:hover{
     background-color: #0c2d49;
 }
-
-#texto-contenedor p {
-    margin: 10px 0;
-    color: #333;
-    font-size: 18px;
-    line-height: 1.6;
-    transition: all 0.3s ease;
+#texto-contenedor{
+    font-size: 24px;
 }
 
-#texto-contenedor p.bold {
-    color: #E14c99;
-    font-weight: bold;
-}
 #description-container {
     position: relative;
     display: inline-block;
+    font-size: 28px;
 }
 
 #description {
