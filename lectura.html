@@ -12,15 +12,22 @@
     </header>
     <main>
         <h1 id="page-title"></h1>
-        <p id="description"></p>
+        <div id="description-container" style="position: relative; display: inline-block;">
+            <p id="description">Aquí tienes la historia de Cenicienta:</p>
+            <img id="speaking-icon" src="media/speaking.png" alt="Speaking Icon" style="display: none;">
+        </div>
+        
+        
         <div id="story-content"></div>
-        <div id="escuchar-container">
+        <div id="escuchar-container" style="position: relative;">
             <div id="texto-contenedor"></div>
             <div id="controls">
                 <button id="btnPlay" class="action-button play">Play</button>
                 <button id="btnPause" class="action-button pause">Pause</button>
             </div>
         </div>
+        
+        
         
         <div id="navigation-buttons">
             <button id="prev-button" disabled>Atrás</button>
@@ -61,7 +68,7 @@
             description.textContent = "Aquí tienes la historia de Cenicienta:";
             escucharContainer.style.display = 'none';
 
-            fetch('Cenicienta.txt')
+            fetch('books/Cenicienta.txt')
                 .then(response => response.text())
                 .then(data => {
                     storyLines = data.split('\n').filter(line => line.trim() !== ''); // Filtrar líneas vacías
@@ -93,70 +100,74 @@
             });
         }
         else if (action === 'escuchar') {
-            pageTitle.textContent = "Escucha del Cuento";
-            description.textContent = "Aquí tienes la historia de Cenicienta:";
-            navigationContainer.style.display = 'none';
+    pageTitle.textContent = "Escucha del Cuento";
+    description.textContent = "Aquí tienes la historia de Cenicienta:";
+    navigationContainer.style.display = 'none';
 
-            fetch('Cenicienta.txt')
-                .then(response => response.text())
-                .then(async data => {
-                    storyLines = data.split('\n').filter(line => line.trim() !== ''); // Filtrar líneas vacías
-                    currentIndex = 0;
-                    textoContenedor.textContent = storyLines[currentIndex]; // Mostrar la primera línea
-                    const voices = await loadVoices();
+    const speakingIcon = document.getElementById('speaking-icon');
 
-                    let utterance = null;
+    fetch('books/Cenicienta.txt')
+        .then(response => response.text())
+        .then(async data => {
+            storyLines = data.split('\n').filter(line => line.trim() !== '');
+            currentIndex = 0;
+            textoContenedor.textContent = storyLines[currentIndex];
+            const voices = await loadVoices();
 
-                    const playLine = () => {
+            let utterance = null;
+
+            const playLine = () => {
+                if (currentIndex < storyLines.length) {
+                    utterance = new SpeechSynthesisUtterance(storyLines[currentIndex]);
+                    utterance.lang = "es-ES";
+                    utterance.voice = voices.find(voice => voice.name === 'Microsoft Elvira Online (Natural) - Spanish (Spain)') 
+                        || voices.find(voice => voice.lang === 'es-ES') || voices[0];
+
+                    textoContenedor.textContent = storyLines[currentIndex];
+
+                    utterance.onstart = () => {
+                        speakingIcon.style.display = 'block'; // Mostrar el ícono al iniciar
+                    };
+
+                    utterance.onend = () => {
+                        speakingIcon.style.display = 'none'; // Ocultar el ícono al finalizar
+                        currentIndex++;
                         if (currentIndex < storyLines.length) {
-                            // Configurar la síntesis para la línea actual
-                            utterance = new SpeechSynthesisUtterance(storyLines[currentIndex]);
-                            utterance.lang = "es-ES";
-                            utterance.voice = voices.find(voice => voice.name === 'Microsoft Elvira Online (Natural) - Spanish (Spain)')
-                                || voices.find(voice => voice.lang === 'es-ES') || voices[0];
-
-                            // Mostrar la línea actual
-                            textoContenedor.textContent = storyLines[currentIndex];
-
-                            // Al terminar de leer esta línea, pasar a la siguiente
-                            utterance.onend = () => {
-                                currentIndex++;
-                                if (currentIndex < storyLines.length) {
-                                    playLine(); // Leer la siguiente línea
-                                } else {
-                                    textoContenedor.textContent = "Lectura finalizada.";
-                                }
-                            };
-
-                            // Iniciar la lectura de la línea actual
-                            speechSynthesis.speak(utterance);
+                            playLine();
+                        } else {
+                            textoContenedor.textContent = "Lectura finalizada.";
                         }
                     };
 
-                    // Botón Play
-                    document.getElementById('btnPlay').addEventListener('click', () => {
-                        if (speechSynthesis.speaking) {
-                            speechSynthesis.cancel(); // Cancelar cualquier lectura previa
-                        }
-                        playLine(); // Comenzar o reanudar desde la línea actual
-                    });
+                    speechSynthesis.speak(utterance);
+                }
+            };
 
-                    // Botón Pause
-                    document.getElementById('btnPause').addEventListener('click', () => {
-                        if (speechSynthesis.speaking) {
-                            if (speechSynthesis.paused) {
-                                speechSynthesis.resume();
-                            } else {
-                                speechSynthesis.pause();
-                            }
-                        }
-                    });
-                })
-                .catch(error => {
-                    textoContenedor.textContent = 'Error al cargar el texto. Por favor, inténtalo más tarde.';
-                    console.error(error);
-                });
-        }
+            document.getElementById('btnPlay').addEventListener('click', () => {
+                if (speechSynthesis.speaking) {
+                    speechSynthesis.cancel();
+                }
+                playLine();
+            });
+
+            document.getElementById('btnPause').addEventListener('click', () => {
+                if (speechSynthesis.speaking) {
+                    if (speechSynthesis.paused) {
+                        speechSynthesis.resume();
+                        speakingIcon.style.display = 'block'; // Mostrar el ícono al reanudar
+                    } else {
+                        speechSynthesis.pause();
+                        speakingIcon.style.display = 'none'; // Ocultar el ícono al pausar
+                    }
+                }
+            });
+        })
+        .catch(error => {
+            textoContenedor.textContent = 'Error al cargar el texto. Por favor, inténtalo más tarde.';
+            console.error(error);
+        });
+}
+
 
 
         else {
