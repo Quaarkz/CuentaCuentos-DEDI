@@ -25,7 +25,7 @@
 }
 
 body {
-    background-image: url('../media/fondo.jpg');
+    background-image: url('../media/fondo2.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -37,12 +37,12 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: stretch;
-    height: auto; /* Cambiado para permitir scroll en pantallas pequeñas */
+    height: auto;
     font-family: Arial, sans-serif;
     padding: 20px;
     background-color: transparent;
-    flex-wrap: wrap; /* Permitir que los elementos se ajusten automáticamente */
-}
+    flex-wrap: wrap;
+
 
 /* Columnas */
 .column {
@@ -55,14 +55,14 @@ body {
 }
 
 .column.story-actions {
-    flex: 0.5; /* Reducir el ancho para que ocupe menos espacio */
-    background-color: transparent; /* Eliminar fondo */
-    box-shadow: none; /* Quitar sombra */
-    padding: 10px; /* Reducir padding */
+    flex: 0.5; /*Ajustar segun el ancho de columna que yo quiera*/
+    background-color: transparent; 
+    box-shadow: none; 
+    padding: 10px; 
 }
 
 .column.story-details {
-    flex: 1.6; /* Aumentar el ancho */
+    flex: 1.6;  /*Ajustar segun el ancho de columna que yo quiera*/
     margin-right: 1.5%;
 }
 
@@ -84,7 +84,7 @@ body {
     border-radius: 8px;
 }
 
-/* Estilo de la segunda columna */
+/* Segunda columna */
 .story-details {
     width: 100%;
     display: flex;
@@ -102,7 +102,7 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.story-section h3 {
+.story-section h2 {
     margin-bottom: 10px;
     font-size: 24px;
     color: #333;
@@ -114,7 +114,6 @@ body {
     color: #555;
 }
 
-/* Barra de duración */
 .duration-bar {
     height: 20px;
     width: 90%;
@@ -130,7 +129,7 @@ body {
     margin-bottom: 10px;
 }
 
-.duration-header h3 {
+.duration-header h2 {
     margin: 0; /* Eliminar márgenes del h3 */
 }
 
@@ -143,11 +142,10 @@ body {
 .duration-fill {
     height: 100%;
     width: 70%; /* Ejemplo: 70% de duración completada */
-    background-color: #a071b6;
+    background-color: #103d68;
     border-radius: 10px;
 }
 
-/* Sinopsis */
 .story-synopsis {
     white-space: normal;
     word-wrap: break-word;
@@ -165,79 +163,72 @@ body {
 }
 
 .story-actions a{
-    text-decoration: none; /* Sin subrayado */
-    color: inherit; /* Usa el color definido en el botón */
-    display: inline-block; /* Asegura que el botón respete su estilo */
+    text-decoration: none;
+    color: inherit;
+    display: inline-block;
 }
 
 .action-button {
-    display: block; /* Asegura que ocupe todo el ancho disponible */
+    display: block;
     width: 90%; /* Igual que antes */
     max-width: 300px;
-    padding: 40px 0; /* Altura y espacio */
+    padding: 40px 0;
     font-size: 20px;
     margin: 10px 0;
-    border: none; /* Sin borde */
+    border: none;
     border-radius: 10px;
-    text-align: center; /* Centrar texto */
-    text-decoration: none; /* Sin subrayado */
-    color: #fff !important; /* Texto blanco */
+    text-align: center;
+    text-decoration: none;
+    color: #fff !important;
     cursor: pointer;
     transition: background-color 0.3s ease, opacity 0.3s ease;
 }
 
 .read {
-    background-color: #3c8dd8;
+    background-color: #103d68;
 }
 
 .listen {
-    background-color: #E14c99;
-}
-
-.action-button:hover {
-    background-color: #1c6bb0; /* Azul más oscuro para 'read' */
-    transform: scale(1.05); /* Zoom ligero */
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3); /* Sombra para resaltar el botón */
+    background-color: #9b3a0d;
 }
 
 .read:hover {
-    background-color: #1c6bb0; /* Azul oscuro */
+    background-color: #0c2d49
 }
 
 .listen:hover {
-    background-color: #b0006f; /* Rosa oscuro */
+    background-color: #6d3705
 }
 
-/* Estilo para el contenedor de la información del autor */
 .author-info {
     display: flex;
     justify-content: space-between;
     gap: 20px;
 }
 
-/* Estilo para el texto del autor */
+/* Texto del autor */
 .author-text {
     flex: 2;
     text-align: left;
 }
 
-/* Estilo para la imagen del autor */
+/* Imagen del autor */
 .author-image {
     flex: 1;
-    width: 100%; /* Para que se ajuste al ancho del contenedor */
-    max-width: 300px; /* Tamaño máximo en pantallas grandes */
-    height: auto; /* Mantener la proporción de la imagen */
+    width: 100%;
+    max-width: 300px;
+    height: auto;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    object-fit: cover; /* Ajustar la imagen sin deformarla */
+    object-fit: cover;
 }
 
 
-/* Responsivo: Reorganizar en pantallas pequeñas */
+/* Intento de Responsive */
 @media (max-width: 768px) {
     .story-container {
-        flex-direction: column; /* Cambiar a disposición vertical */
-        align-items: stretch; /* Alinear columnas al ancho total */
+        flex-direction: column;
+        align-items: stretch;
         padding: 10px;
     }
 
@@ -247,62 +238,62 @@ body {
     }
 
     .story-title {
-        font-size: 28px; /* Reducir tamaño del título */
+        font-size: 28px;
     }
 
     .story-section {
-        padding: 15px; /* Reducir espaciado interno */
-        margin-bottom: 15px; /* Espaciado entre secciones */
+        padding: 15px;
+        margin-bottom: 15px;
     }
 
     .action-button {
-        width: 100%; /* Botones ajustados al ancho total */
-        font-size: 18px; /* Texto más pequeño */
-        padding: 15px 0; /* Menos padding */
+        width: 100%;
+        font-size: 18px;
+        padding: 15px 0;
     }
 
     .story-image {
-        max-width: 100%; /* Imagen a ancho completo */
+        max-width: 100%;
         height: auto;
     }
 
     .author-info {
-        flex-direction: column; /* Imagen y texto en vertical */
+        flex-direction: column;
         align-items: center;
     }
 
     .author-image {
-        width: 80%; /* Imagen al 80% del ancho */
-        max-width: 250px; /* Límite de tamaño máximo */
-        margin-bottom: 15px; /* Separación con el texto */
+        width: 80%;
+        max-width: 250px;
+        margin-bottom: 15px;
     }
 
     .author-text {
-        text-align: center; /* Centrar el texto */
+        text-align: center;
     }
 }
 
-/* Ajustes para pantallas aún más pequeñas */
+/* Para pantallas aún más pequeñas, sin esto en iphone creo que se rompe */
 @media (max-width: 480px) {
     .header-title {
-        font-size: 28px; /* Reducir tamaño del título principal */
+        font-size: 28px;
     }
 
     .story-title {
-        font-size: 24px; /* Reducir el título del cuento */
+        font-size: 24px;
     }
 
     .action-button {
-        font-size: 16px; /* Botones más pequeños */
+        font-size: 16px;
         padding: 10px 0;
     }
 
     .story-synopsis {
-        font-size: 14px; /* Texto más pequeño */
+        font-size: 14px;
         line-height: 1.4;
     }
 
     .author-image {
-        width: 90%; /* Imagen más pequeña en pantallas estrechas */
+        width: 90%;
     }
 }
