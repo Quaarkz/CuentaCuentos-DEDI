@@ -83,6 +83,21 @@ button:disabled {
     background-color: #b23875;
 }
 
+.action-button.play{
+    margin-top: 20px;
+    background-color: #3c8dd8;
+}
+.action-button.pause{
+    margin-top: 20px;
+    background-color: #E14c99;
+}
+.action-button.play:hover{
+    background-color: #2a6ca8;
+}
+.action-button.pause:hover{
+    background-color: #b23875;
+}
+
 #texto-contenedor p {
     margin: 10px 0;
     color: #333;
