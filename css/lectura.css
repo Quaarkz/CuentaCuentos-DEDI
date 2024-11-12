@@ -36,16 +36,15 @@ main {
 button {
     padding: 10px 20px;
     font-size: 16px;
-    background-color: #3c8dd8;
+    background-color: #266aaa;
     color: #fff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
-
-button:hover {
-    background-color: #2a6ca8;
+button:hover{
+    background-color: #15436e;
 }
 
 button:disabled {
@@ -63,39 +62,40 @@ button:disabled {
 .action-button {
     padding: 10px 20px;
     font-size: 16px;
-    background-color: #3c8dd8;
+    background-color: #266aaa;
     color: #fff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
 }
-
+.action-button.read{
+    background-color: #103d68;
+}
 .action-button.read:hover {
-    background-color: #2a6ca8;
+    background-color: #0c2d49;
 }
 
 .action-button.listen {
-    background-color: #E14c99;
+    background-color: #9b3a0d;
 }
 
 .action-button.listen:hover {
-    background-color: #b23875;
+    background-color: #6d3705;
 }
 
 .action-button.play{
     margin-top: 20px;
-    background-color: #3c8dd8;
+    background-color: #9b3a0d;
 }
 .action-button.pause{
     margin-top: 20px;
-    background-color: #E14c99;
+    background-color: #103d68;
 }
 .action-button.play:hover{
-    background-color: #2a6ca8;
+    background-color: #6d3705;
 }
 .action-button.pause:hover{
-    background-color: #b23875;
+    background-color: #0c2d49;
 }
 
 #texto-contenedor p {
