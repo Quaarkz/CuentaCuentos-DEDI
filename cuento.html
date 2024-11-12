@@ -13,7 +13,6 @@
         <a href="index.html" class="header-title">Cuentacuentos</a>
     </header>
 
-    <!-- Contenido del cuento -->
     <div class="story-container">
         <!-- Primera Columna -->
         <div class="column story-info">
@@ -65,8 +64,11 @@
 
         <!-- Tercera Columna -->
         <div class="column story-actions">
-            <a href="lectura.html?action=leer" class="action-button read">Leer Cuento</a>
-            <a href="lectura.html?action=escuchar" class="action-button listen">Escuchar Cuento</a>
+            <label for="botonLeer" hidden>Leer cuento</label>
+            <a href="lectura.html?action=leer" class="action-button read" id="botonLeer">Ir a leer Cuento</a>
+
+            <label for="botonEscuchar" hidden>Ir a escuchar cuento</label>
+            <a href="lectura.html?action=escuchar" class="action-button listen" id="botonEscuchar">Escuchar Cuento</a>
         </div>
     </div>
 </body>
