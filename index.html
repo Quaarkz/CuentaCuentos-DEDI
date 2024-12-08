@@ -18,15 +18,40 @@
         <h2>¿Qué quieres leer?</h2>
     </section>
 
-    <!-- Sección de Tarjetas -->
-    <section class="carousel">
-        <div class="carousel-inner">
+    <!-- Sistema de Biblioteca -->
+    <section class="library">
+        <div class="library-row">
             <div class="card">
                 <div class="card-left">
                     <h3>La Cenicienta</h3>
                     <div class="story-actions">
-                        <a href="lectura.html?action=leer" class="action-button read" id="botonLeer">Ir a leer Cuento</a>
-                        <a href="lectura.html?action=escuchar" class="action-button listen" id="botonEscuchar">Escuchar Cuento</a>
+                        <a href="lectura.html?action=leer" class="action-button read">Ir a leer Cuento</a>
+                        <a href="lectura.html?action=escuchar" class="action-button listen">Escuchar Cuento</a>
+                    </div>
+                </div>
+                <div class="card-right">
+                    <img src="media/cenicienta.jpg" alt="Imagen de La Cenicienta" class="story-image">
+                </div>
+            </div>
+            <!-- Repite el mismo formato para las demás tarjetas -->
+            <div class="card">
+                <div class="card-left">
+                    <h3>La Cenicienta</h3>
+                    <div class="story-actions">
+                        <a href="lectura.html?action=leer" class="action-button read">Ir a leer Cuento</a>
+                        <a href="lectura.html?action=escuchar" class="action-button listen">Escuchar Cuento</a>
+                    </div>
+                </div>
+                <div class="card-right">
+                    <img src="media/cenicienta.jpg" alt="Imagen de La Cenicienta" class="story-image">
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-left">
+                    <h3>La Cenicienta</h3>
+                    <div class="story-actions">
+                        <a href="lectura.html?action=leer" class="action-button read">Ir a leer Cuento</a>
+                        <a href="lectura.html?action=escuchar" class="action-button listen">Escuchar Cuento</a>
                     </div>
                 </div>
                 <div class="card-right">
@@ -34,41 +59,45 @@
                 </div>
             </div>
         </div>
-        <div class="carousel-controls">
-            <button id="prev">◀</button>
-            <button id="next">▶</button>
+        <div class="library-row">
+            <div class="card">
+                <div class="card-left">
+                    <h3>La Cenicienta</h3>
+                    <div class="story-actions">
+                        <a href="lectura.html?action=leer" class="action-button read">Ir a leer Cuento</a>
+                        <a href="lectura.html?action=escuchar" class="action-button listen">Escuchar Cuento</a>
+                    </div>
+                </div>
+                <div class="card-right">
+                    <img src="media/cenicienta.jpg" alt="Imagen de La Cenicienta" class="story-image">
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-left">
+                    <h3>La Cenicienta</h3>
+                    <div class="story-actions">
+                        <a href="lectura.html?action=leer" class="action-button read">Ir a leer Cuento</a>
+                        <a href="lectura.html?action=escuchar" class="action-button listen">Escuchar Cuento</a>
+                    </div>
+                </div>
+                <div class="card-right">
+                    <img src="media/cenicienta.jpg" alt="Imagen de La Cenicienta" class="story-image">
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-left">
+                    <h3>La Cenicienta</h3>
+                    <div class="story-actions">
+                        <a href="lectura.html?action=leer" class="action-button read">Ir a leer Cuento</a>
+                        <a href="lectura.html?action=escuchar" class="action-button listen">Escuchar Cuento</a>
+                    </div>
+                </div>
+                <div class="card-right">
+                    <img src="media/cenicienta.jpg" alt="Imagen de La Cenicienta" class="story-image">
+                </div>
+            </div>
         </div>
     </section>
-
-    <!-- JavaScript para el carrusel -->
-    <script>
-        // Seleccionamos los elementos necesarios
-        const carouselInner = document.querySelector('.carousel-inner');
-        const cards = document.querySelectorAll('.card');
-        const prevButton = document.getElementById('prev');
-        const nextButton = document.getElementById('next');
-
-        // Inicializamos el índice para la posición actual del carrusel
-        let currentIndex = 0;
-
-        // Función para mostrar la tarjeta en el índice actual
-        function updateCarousel() {
-            const offset = -currentIndex * 100; // Calculamos el desplazamiento basado en el índice
-            carouselInner.style.transform = `translateX(${offset}%)`; // Aplicamos el desplazamiento
-        }
-
-        // Evento para el botón "Anterior"
-        prevButton.addEventListener('click', () => {
-            currentIndex = (currentIndex > 0) ? currentIndex - 1 : cards.length - 1;
-            updateCarousel();
-        });
-
-        // Evento para el botón "Siguiente"
-        nextButton.addEventListener('click', () => {
-            currentIndex = (currentIndex < cards.length - 1) ? currentIndex + 1 : 0;
-            updateCarousel();
-        });
-    </script>
 
 </body>
 </html>
