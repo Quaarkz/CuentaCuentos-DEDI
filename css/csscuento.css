@@ -25,6 +25,8 @@
 }
 
 .header-title {
+    
+    font-family: Calibri, 'Trebuchet MS', sans-serif;
     color: #fff;
     font-size: 36px;
     text-decoration: none;
@@ -204,11 +206,13 @@ body {
 }
 
 .read:hover {
-    background-color: #0c2d49
+    background-color: rgba(22, 138, 247, 0.9);
+    transform: scale(1.02);
 }
 
 .listen:hover {
-    background-color: #6d3705
+    background-color: #d66c09;
+  transform: scale(1.02);
 }
 
 .author-info {

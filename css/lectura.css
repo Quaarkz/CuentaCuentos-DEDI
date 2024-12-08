@@ -1,22 +1,32 @@
-.header {
-    text-align: center;
-    background-color: #504d4d;
-    padding: 20px;
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-.header-title {
+.header {
+    width: 100%;
+    padding: 20px;
+    background-color: #504d4d;
+    text-align: center;
+  }
+  
+  .header-title {
+    font-family: Calibri, 'Trebuchet MS', sans-serif;
     color: #fff;
     font-size: 36px;
     text-decoration: none;
-}
-
-.header-title:hover {
-    color: #FFD700;
-}
+    transition: color 0.3s ease;
+  }
+  
+  .header-title:hover {
+    color: #dae453;
+  }
 
 main {
     text-align: center;
-    padding: 20px;
+    padding: 0px;
 }
 
 #story-content {
