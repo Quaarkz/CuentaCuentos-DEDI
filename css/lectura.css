@@ -170,3 +170,45 @@ button:disabled {
     width: 50px;
     height: 50px;
 }
+/* Contenedor de los botones de escucha (comenzar y pausar) */
+#controls {
+    position: fixed;
+    bottom: 80px; /* Se ajusta a la parte inferior, encima de los botones de navegación */
+    left: 50%; /* Alineamos el contenedor al centro */
+    transform: translateX(-50%); /* Ajuste de centrado exacto */
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    z-index: 20;
+}
+
+#controls .action-button {
+    padding: 14px 28px;
+    font-size: 18px;
+    background-color: #9b3a0d;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#controls .action-button:hover {
+    background-color: #6d3705;
+}
+
+#controls .action-button.play {
+    background-color: #9b3a0d;
+}
+
+#controls .action-button.pause {
+    background-color: #103d68;
+}
+
+#controls .action-button.play:hover {
+    background-color: #6d3705;
+}
+
+#controls .action-button.pause:hover {
+    background-color: #0c2d49;
+}
+
