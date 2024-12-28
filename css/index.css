@@ -1,179 +1,261 @@
-/* General Styles */
+/* ================================
+   RESET BÁSICO
+================================ */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-body {
-  font-family: 'Arial', sans-serif;
-  background-image: url('../media/fondo2.png');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  color: #333;
+/* ================================
+   VARIABLES DE ESTILO
+================================ */
+:root {
+  /* Cabecera, Intro y "Saber más..." */
+  --header-bg:       #289BFF;   /* Fondo del header */
+  --header-text:     #fff;      /* Texto del header */
+  --intro-bg:        #289BFF;   /* Fondo de “¿Qué quieres leer hoy?” */
+  --intro-text:      #fff;      /* Texto de la intro */
+  --btn-more-bg:     #289BFF;   /* Botón “Saber más...” también en azul */
+  
+  /* Tarjetas */
+  --card-bg:         #fff;      /* Fondo de la tarjeta */
+  --card-border:     #000;      /* Borde negro */
+  --title-bg:        #FFBF00;   /* Amarillo del título de la tarjeta */
+  --title-text:      #333;      /* Texto del título */
+  
+  /* Botones */
+  --btn-read-bg:     #FA7C43;   /* Botón “Leer” (naranja) */
+  --btn-listen-bg:   #63A59D;   /* Botón “Escuchar” (teal) */
+  --btn-text:        #fff;      /* Texto blanco en botones */
+  
+  /* Fuentes */
+  --font-title:      'Fredoka One', sans-serif; /* Fuente cartoon */
+  --font-body:       'Arial', sans-serif;       /* Fuente estándar */
+  
+  /* Dimensiones */
+  --border-size:     3px;
+  --radius:          1rem;      /* Esquinas redondeadas grandes */
 }
 
-/* Header */
-/* Header */
+/* ================================
+   BODY Y FUENTES
+================================ */
+html {
+  font-size: 18px;                /* Tamaño base de fuente */
+  font-family: var(--font-body);  /* Fuente por defecto */
+  color: var(--title-text);
+}
+
+body {
+  background-color: #fefefe;
+  line-height: 1.4;
+}
+
+/* ================================
+   HEADER PRINCIPAL
+================================ */
 .header {
-  width: 100%;
-  padding: 20px;
-  background-color: #504d4d;
+  background-color: var(--header-bg);
+  padding: 1rem;
   text-align: center;
 }
 
 .header-title {
-  font-family: Calibri, 'Trebuchet MS', sans-serif;
-  color: #fff;
-  font-size: 36px;
+  color: var(--header-text);
   text-decoration: none;
-  transition: color 0.3s ease;
+  font-size: 2.2rem;
+  font-weight: bold;
 }
 
-.header-title:hover {
-  color: #dae453;
-}
-
-/* Intro */
+/* ================================
+   SECCIÓN INTRO (TÍTULO GRANDE)
+================================ */
 .intro {
+  background-color: var(--intro-bg);
+  color: var(--intro-text);
+  padding: 1rem 2rem;
+  border-radius: var(--radius);
+  margin: 2rem auto;
   text-align: center;
-  margin: 20px 0;
+  max-width: 600px;
 }
 
 .intro h2 {
-  font-size: 1.8rem;
-  color: #6D4C41;
+  font-size: 2rem;
+  font-weight: bold;
 }
 
-/* Library */
+/* ================================
+   CONTENEDOR .library (GRID)
+================================ */
 .library {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;       /* Espacio entre tarjetas */
   max-width: 1200px;
-  margin: auto;
+  margin: 0 auto 2rem;
+  padding: 0 1rem;
 }
 
-.library-row {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 20px;
+/* Ajustes responsivos */
+@media (max-width: 900px) {
+  .library {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
-.card {
-  display: flex;
-  background-color: #f8f0d4;
-  border-radius: 10px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-  padding: 15px;
-  width: calc(33.333% - 20px);
-  min-height: 200px;
+@media (max-width: 600px) {
+  .library {
+    grid-template-columns: 1fr;
+  }
 }
 
-.card-left {
+/* ================================
+   TARJETAS .story-card
+================================ */
+.story-card {
+  background-color: var(--card-bg);
+  border: var(--border-size) solid var(--card-border);
+  border-radius: var(--radius);
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  gap: 10px;
+  min-height: 380px; /* Altura mínima, puedes ajustarla */
+}
+
+/* Título de la tarjeta (encabezado amarillo) */
+.story-card__header {
+  background-color: var(--title-bg);
+  color: var(--title-text);
+  font-family: var(--font-title);
+  font-size: 1.8rem;
+  text-align: center;
+  padding: 0.75rem 1rem;
+  border-top-left-radius: var(--radius);
+  border-top-right-radius: var(--radius);
+  text-shadow: 0 2px 2px rgba(0,0,0,0.2); /* Sombra de texto para efecto cartoon */
+}
+
+.story-card__title {
+  font-weight: normal; /* 'Fredoka One' ya es gruesa */
+}
+
+/* ================================
+   CONTENIDO DE LA TARJETA:
+   - Parte izquierda (botones)
+   - Parte derecha (imagen + Saber más)
+================================ */
+.story-card__content {
   flex: 1;
-  text-align: left;
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  padding: 1rem;
+  gap: 1rem;
 }
 
-.card-left h3 {
-  margin-bottom: auto;
-  font-size: 1.2rem;
-  color: #6D4C41;
-}
-
-.card-left .story-actions {
+/* 
+   ZONA IZQUIERDA: Botones “Leer” y “Escuchar”
+   Queremos cuadrados grandes verticales
+*/
+.story-card__actions {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 30px;
-  margin-top: auto;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 1rem;
 }
 
-.card-right {
-  position: relative;
+/* 
+   ZONA DERECHA: Contenedor para 
+   la portada + botón “Saber más...” 
+   en un único bloque redondeado
+*/
+.story-card__poster-wrapper {
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-left: 20px;
 }
 
-.card-right img {
-  width: 100%; /* Aseguramos que la imagen ocupe todo el contenedor */
-  max-width: 90%; /* Opcional: ajusta el tamaño máximo relativo */
+/* El bloque unificado (imagen + botón) */
+.story-card__poster {
+  border: var(--border-size) solid var(--card-border);
+  border-radius: 0.5rem;
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+  width: 140px;
+  margin: 0 auto;
+}
+
+/* Imagen */
+.story-card__image {
+  width: 100%;
   height: auto;
-  border-radius: 10px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  display: block;
 }
 
-.more-info-button {
-  position: absolute;
-  width: 90%; /* Coincide con el ancho máximo de la imagen */
-  bottom: 0px; /* Ajusta para mantenerlo dentro del contorno de la imagen */
-  left: 5%; /* Centra horizontalmente al ajustar un margen proporcional */
-  background-color: #103d68; /* Fondo semi-transparente */
-  color: white;
-  text-decoration: none;
-  padding: 10px 0; /* Ajuste del espacio interno */
-  font-size: 0.9rem;
+/* ================================
+   BOTONES
+================================ */
+.btn {
+  width: 80%;
+  aspect-ratio: 1 / 1;  /* Mantiene forma cuadrada para Leer/Escuchar */
+  background-color: var(--btn-read-bg);
+  color: var(--btn-text);
+  border: var(--border-size) solid var(--card-border);
+  border-radius: 0.5rem;
+  font-family: var(--font-title);
+  font-size: 1.3rem;
   text-align: center;
-  border-bottom-left-radius: 8px; /* Coincide con las esquinas redondeadas de la imagen */
-  border-bottom-right-radius: 8px;
-  transition: background-color 0.3s, transform 0.2s;
-}
-
-.more-info-button:hover {
-  background-color: rgba(22, 138, 247, 0.9);
-  transform: scale(1.02); /* Efecto de zoom ligero */
-}
-
-
-
-.action-button.read {
-  margin: 5px 0;
-  background-color: #103d68;
-  color: white;
-  padding: 10px;
-  border-radius: 5px;
   text-decoration: none;
-  font-size: 1rem;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: 0.2s ease-in-out;
 }
 
-.action-button.listen {
-  margin: 5px 0;
-  background-color: #9b3a0d;
-  color: white;
-  padding: 10px;
-  border-radius: 5px;
+.btn:hover {
+  opacity: 0.9;
+}
+
+/* Botón naranja (Leer) */
+.btn--read {
+  background-color: var(--btn-read-bg);
+}
+
+/* Botón teal (Escuchar) */
+.btn--listen {
+  background-color: var(--btn-listen-bg);
+}
+
+/* ================================
+   BOTÓN “Saber más…” 
+================================ */
+.story-card__more {
+  display: block;
+  text-align: center;
   text-decoration: none;
+
+  width: 100%;
+  padding: 0.7rem 0;
+
+  background-color: var(--btn-more-bg);
+  color: var(--btn-text);
+  border: none; /* Borde global en .story-card__poster */
+  font-family: var(--font-title);
   font-size: 1rem;
+  cursor: pointer;
+
+  transition: 0.2s ease-in-out;
 }
 
-.action-button:hover.read{
-  background-color: rgba(22, 138, 247, 0.9);
-  transform: scale(1.02);
-}
-.action-button:hover.listen {
-  background-color: #d66c09;
-  transform: scale(1.02);
-}
-
-/* Responsiveness */
-@media (max-width: 768px) {
-  .card {
-    flex-direction: column;
-    width: 100%;
-  }
-
-  .card-left, .card-right {
-    align-items: center;
-    text-align: center;
-  }
+.story-card__more:hover {
+  opacity: 0.9;
 }
