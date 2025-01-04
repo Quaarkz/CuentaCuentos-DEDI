@@ -1,0 +1,198 @@
+/* ================================
+   RESET BÁSICO
+=============================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+}
+
+/* ================================
+   VARIABLES DE ESTILO
+=============================== */
+:root {
+  /* Colores */
+  --header-bg:       #289BFF;   /* Fondo del header */
+  --header-text:     #fff;      /* Texto del header */
+  --title-bg:        #FFBF00;   /* Fondo del título */
+  --title-text:      #000;      /* Texto del título */
+  --sinopsis-bg:     #7FBE2C;   /* Fondo sinopsis */
+  --autor-bg:        #4C70FF;   /* Fondo autor */
+  --dificultad-bg:   #FF686A;   /* Fondo dificultad */
+  --btn-read-bg:     #FA7C43;   /* Botón “Leer” */
+  --btn-listen-bg:   #63A59D;   /* Botón “Escuchar” */
+  --btn-text:        #fff;      /* Texto blanco en botones */
+
+  /* Fuentes y Dimensiones */
+  --font-title:      'Fredoka One', sans-serif; /* Fuente cartoon */
+  --radius:          1rem;                      /* Esquinas redondeadas grandes */
+  --border-size:     3px;                       /* Tamaño de borde */
+  --card-border:     #000;                      /* Color de borde */
+}
+
+/* ================================
+   BODY Y FUENTES
+=============================== */
+html {
+  font-size: 18px;                /* Tamaño base de fuente */
+  color: var(--title-text);
+  font-family: Arial, sans-serif; /* Fuente por defecto */
+}
+
+body {
+  background-color: #fefefe;
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* ================================
+   HEADER PRINCIPAL
+=============================== */
+.header {
+  background-color: var(--header-bg);
+  padding: 1rem;
+  text-align: center;
+}
+
+.header-title {
+  color: var(--header-text);
+  text-decoration: none;
+  font-size: 2.2rem;
+  font-weight: bold;
+}
+
+/* ================================
+   CABECERA DEL CUENTO
+=============================== */
+.story-header {
+  background-color: var(--title-bg);
+  color: var(--title-text);
+  text-align: center;
+  padding: 1rem;
+}
+
+.story-title {
+  font-family: var(--font-title);
+  margin: 0;
+}
+
+/* ================================
+   CONTENEDOR PRINCIPAL
+=============================== */
+.story-container {
+  max-width: 1000px;
+  margin: 1.5rem auto;
+  padding: 1rem;
+}
+
+.story-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: space-between;
+}
+
+/* ================================
+   IMAGEN DE LA PORTADA
+=============================== */
+.story-image-wrapper {
+  flex: 0 0 300px;
+  text-align: center;
+}
+
+.story-image {
+  max-width: 100%;
+  height: auto;
+  border: 3px solid var(--card-border);
+  border-radius: 0.5rem;
+}
+
+/* ================================
+   DETALLES DEL CUENTO
+=============================== */
+.story-details {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.story-section {
+  padding: 1rem;
+  border-radius: var(--radius);
+  color: var(--btn-text);
+}
+
+.sinopsis {
+  background-color: var(--sinopsis-bg);
+  font-size: 1.2rem;
+}
+
+.autor {
+  background-color: var(--autor-bg);
+  font-size: 1.2rem;
+}
+
+.dificultad {
+  background-color: var(--dificultad-bg);
+  font-size: 1.2rem;
+}
+
+.section-title {
+  font-family: var(--font-title);
+  margin-bottom: 0.5rem;
+}
+
+.story-synopsis,
+.author-info {
+  margin: 0;
+}
+
+.difficulty-stars {
+  font-size: 1.5rem;
+}
+
+/* ================================
+   BOTONES
+=============================== */
+.story-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+}
+
+.btn {
+  width: 80%;
+  aspect-ratio: 1 / 1;  /* Mantiene forma cuadrada */
+  background-color: var(--btn-read-bg); /* Color por defecto */
+  color: var(--btn-text);
+  border: var(--border-size) solid var(--card-border);
+  border-radius: 0.5rem;
+  font-family: var(--font-title);
+  font-size: 1.3rem;
+  text-align: center;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.2s ease-in-out;
+}
+
+.btn:hover {
+  opacity: 0.9;
+}
+
+.btn-read {
+  background-color: var(--btn-read-bg);
+}
+
+.btn-listen {
+  background-color: var(--btn-listen-bg);
+}
+
+.action-icon {
+  max-width: 60%;
+  height: auto;
+}

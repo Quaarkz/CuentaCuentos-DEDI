@@ -26,65 +26,15 @@
         <!-- Biblioteca -->
         <section class="library">
 
-            <!-- George y el cuadro -->
-            <article class="story-card">
-            
-                <!-- Título -->
-                <header class="story-card__header">
-                    <h3 class="story-card__title">George y el Cuadro</h3>
-                </header>
-
-                <!-- Botones + Póster -->
-                <div class="story-card__content">
-
-                    <!-- Botones de acción: Leer y Escuchar -->
-                    <div class="story-card__actions">
-                        <!-- Botón "Leer" con icono de libro -->
-                        <button class="btn btn--read">
-                            <img 
-                                src="media/Book.png" 
-                                alt="Leer"
-                            >
-                        </button>
-                        <!-- Botón "Escuchar" con icono de altavoz -->
-                        <button class="btn btn--listen">
-                            <img 
-                                src="media/Speaker.png" 
-                                alt="Escuchar"
-                            >
-                        </button>
-                    </div>
-
-                    <!-- Póster del cuento + enlace de "Saber más..." -->
-                    <div class="story-card__poster-wrapper">
-                        <div class="story-card__poster">
-
-                            <!-- Envolver la imagen en un <a> que apunta a la misma URL -->
-                            <a href="detalle-george.html">
-                                <img 
-                                    src="media/george-cuadro.jpeg" 
-                                    alt="Portada del cuento George y el Cuadro" 
-                                    class="story-card__image"
-                                >
-                            </a>
-
-                            <!-- Botón "Saber más..." -->
-                            <a href="detalle-george.html" class="story-card__more">
-                                Saber más...
-                            </a>
-                        </div>
-                    </div>
-
-                </div>
-            </article>
-
             <!-- La Cenicienta -->
             <article class="story-card">
 
                 <!-- Título -->
-                <header class="story-card__header">
-                    <h3 class="story-card__title">La Cenicienta</h3>
-                </header>
+                <a href="cuento.html" class="story-card__header-link">
+                    <header class="story-card__header">
+                        <h3 class="story-card__title">La Cenicienta</h3>
+                    </header>
+                </a>
             
                 <!-- Botones + Póster -->
                 <div class="story-card__content">
@@ -126,13 +76,65 @@
                 </div>
             </article>
 
-            <!-- La Cenicienta (repetido) -->
+            <!-- La Cenicienta (2) -->
             <article class="story-card">
 
                 <!-- Título -->
-                <header class="story-card__header">
-                    <h3 class="story-card__title">La Cenicienta</h3>
-                </header>
+                <a href="cuento.html" class="story-card__header-link">
+                    <header class="story-card__header">
+                        <h3 class="story-card__title">La Cenicienta</h3>
+                    </header>
+                </a>
+            
+                <!-- Botones + Póster -->
+                <div class="story-card__content">
+            
+                    <!-- Leer y Escuchar (versión con enlaces) -->
+                    <div class="story-card__actions">
+                        <a href="lectura.html?action=leer" class="btn btn--read">
+                            <img 
+                                src="media/Book.png" 
+                                alt="Leer"
+                            >
+                        </a>
+                        <a href="lectura.html?action=escuchar" class="btn btn--listen">
+                            <img 
+                                src="media/Speaker.png" 
+                                alt="Escuchar"
+                            >
+                        </a>
+                    </div>
+                
+                    <!-- Póster del cuento + enlace de "Saber más..." -->
+                    <div class="story-card__poster-wrapper">
+                        <div class="story-card__poster">
+
+                            <!-- Envolver la imagen en un <a> con la misma URL que Saber más -->
+                            <a href="cuento.html">
+                                <img 
+                                    src="media/cenicienta.jpg" 
+                                    alt="Portada del cuento 'La Cenicienta'" 
+                                    class="story-card__image"
+                                >
+                            </a>
+                            <a href="cuento.html" class="story-card__more">
+                                Saber más...
+                            </a>
+                        </div>
+                    </div>
+                    
+                </div>
+            </article>
+
+            <!-- La Cenicienta (3) -->
+            <article class="story-card">
+
+                <!-- Título -->
+                <a href="cuento.html" class="story-card__header-link">
+                    <header class="story-card__header">
+                        <h3 class="story-card__title">La Cenicienta</h3>
+                    </header>
+                </a>
             
                 <!-- Botones + Póster -->
                 <div class="story-card__content">

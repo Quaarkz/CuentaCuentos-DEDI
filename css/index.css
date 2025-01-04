@@ -5,6 +5,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  text-decoration: none;
 }
 
 /* ================================
@@ -120,7 +121,7 @@ body {
   border-radius: var(--radius);
   display: flex;
   flex-direction: column;
-  min-height: 380px; /* Altura mínima, puedes ajustarla */
+  min-height: 380px; /* Altura mínima, se puede ajustar */
 }
 
 /* Título de la tarjeta (encabezado amarillo) */
@@ -134,6 +135,10 @@ body {
   border-top-left-radius: var(--radius);
   border-top-right-radius: var(--radius);
   text-shadow: 0 2px 2px rgba(0,0,0,0.2); /* Sombra de texto para efecto cartoon */
+}
+
+.story-card__header:hover {
+  opacity: 0.9;
 }
 
 .story-card__title {
@@ -196,6 +201,10 @@ body {
   width: 100%;
   height: auto;
   display: block;
+}
+
+.story-card__image:hover {
+  opacity: 0.9;
 }
 
 /* ================================

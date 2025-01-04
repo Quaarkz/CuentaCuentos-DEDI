@@ -3,212 +3,206 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    text-decoration: none;
 }
 
+/* Variables globales */
+:root {
+    --header-bg: #289BFF;
+    --header-text: #fff;
+    --bar-read-bg: #FA7C43;
+    --bar-listen-bg: #63A59D;
+    --btn-bg: #FFBF00;
+    --btn-hover-opacity: 0.8;
+    --text-color: #000;
+    --font-family-title: 'Fredoka One', sans-serif;
+    --font-family-body: Arial, sans-serif;
+    --button-size: 48px;
+    --content-max-width: 80%;
+    --text-large: 32px;
+    --radius: 1rem;
+    --background-image: url('media/backgroundPrueba.png');
+}
+
+/* Estilo de fondo global */
+body {
+    background-image: var(--background-image);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+/* Header principal */
 .header {
-    width: 100%;
-    padding: 20px;
-    background-color: #504d4d;
+    background-color: var(--header-bg);
+    padding: 1rem;
     text-align: center;
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    z-index: 10; /* Asegura que el header esté siempre por encima */
+    z-index: 10;
 }
 
 .header-title {
-    font-family: Calibri, 'Trebuchet MS', sans-serif;
-    color: #fff;
-    font-size: 36px;
+    color: var(--header-text);
     text-decoration: none;
-    transition: color 0.3s ease;
+    font-size: 2.2rem;
+    font-weight: bold;
 }
 
-.header-title:hover {
-    color: #dae453;
-}
-body{
-    background-color: #facdfa;
-}
-
-main {
+/* Barra de acción */
+.action-bar {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    flex-direction: column;
-    min-height: 100vh;
-    padding-top: 60px; /* Reducido para mover el contenido más arriba */
+    padding: 1rem; /* Igual que el título del cuento */
+    background-color: var(--bar-read-bg); /* Cambiar dinámicamente */
+    margin-top: 4rem;
+    transition: background-color 0.3s ease;
+    border-radius: var(--radius);
+}
+
+.action-bar.listen {
+    background-color: var(--bar-listen-bg);
+}
+
+.mode-indicator {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-color);
+    font-family: var(--font-family-title);
+    font-size: 1.5rem; /* Ajustado al tamaño del título */
+}
+
+.mode-indicator img {
+    width: 24px;
+    height: 24px;
+}
+
+.story-title {
+    font-family: var(--font-family-title);
+    font-size: 1.5rem;
+    color: var(--text-color);
+    background-color: var(--btn-bg);
+    padding: 1rem; /* Igual que el banner */
+    border-radius: var(--radius);
+    text-decoration: none;
     text-align: center;
-    position: relative;
+    transition: opacity 0.3s ease;
 }
 
-#page-title {
-    font-size: 36px;
-    margin-top: 0;
-    position: fixed;
-    top: 10%; /* Ajustar la distancia del título desde la parte superior */
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 20;
+.story-title:hover {
+    opacity: var(--btn-hover-opacity);
 }
 
-
-
-#description {
-    font-size: 28px;
-    margin: 0;
+.toggle-mode {
+    background: none;
+    border: none;
+    cursor: pointer;
 }
 
-/* Estilo del texto del cuento (aumentar el ancho del contenedor) */
-#story-content {
-    white-space: pre-wrap;
-    margin-top: 40px; /* Ajustado para mover el texto más arriba */
-    font-size: 32px;
+.toggle-mode img {
+    width: 24px;
+    height: 24px;
+}
+
+/* Contenido principal */
+.story-content {
     text-align: center;
-    max-width: 70%;
-    margin-left: auto;
-    margin-right: auto;
+    font-family: var(--font-family-body);
+    font-size: var(--text-large);
     line-height: 1.5;
+    margin: 2rem auto;
+    max-width: var(--content-max-width);
+    padding: 1rem;
 }
 
-/* Estilo de los botones */
-#navigation-buttons {
+/* Botones de navegación */
+.navigation-buttons {
     position: fixed;
-    bottom: 30px;
+    bottom: 20%; /* Fijar las flechas a una posición estática */
     width: 100%;
     display: flex;
-    justify-content: center;
-    gap: 20px;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
 }
 
-button {
-    padding: 14px 28px;
-    font-size: 18px;
-    background-color: #103d68;
-    color: #fff;
+.nav-button {
+    background: none;
     border: none;
-    border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    width: var(--button-size);
+    height: var(--button-size);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease;
 }
 
-button:hover {
-    background-color: rgba(19, 72, 122, 0.9);
-    transform: scale(1.02);
+.nav-button img {
+    width: 100%;
+    height: 100%;
 }
 
-button:disabled {
-    background-color: #b3cde0;
+.nav-button:hover {
+    transform: scale(1.1);
+}
+
+.nav-button:disabled {
+    opacity: 0.5;
     cursor: not-allowed;
 }
 
-/* Botones de elección */
-#choice-buttons {
-    margin-top: 20px;
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-}
-
-.action-button {
-    padding: 14px 28px;
-    font-size: 18px;
-    background-color: #266aaa;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.action-button.read {
-    background-color: #103d68;
-}
-
-.action-button.read:hover {
-    background-color: #0c2d49;
-}
-
-.action-button.listen {
-    background-color: #9b3a0d;
-}
-
-.action-button.listen:hover {
-    background-color: #6d3705;
-}
-
-.action-button.play {
-    margin-top: 20px;
-    background-color: #9b3a0d;
-}
-
-.action-button.pause {
-    margin-top: 20px;
-    background-color: #103d68;
-}
-
-.action-button.play:hover {
-    background-color: #6d3705;
-}
-
-.action-button.pause:hover {
-    background-color: #0c2d49;
-}
-
-/* Contenedor del texto */
-#texto-contenedor {
-    font-size: 32px; /* Texto más grande */
-}
-
-/* Icono de habla */
-#speaking-icon {
-    display: none;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    right: -60px;
-    width: 50px;
-    height: 50px;
-}
-/* Contenedor de los botones de escucha (comenzar y pausar) */
-#controls {
+/* Controles de audio */
+.audio-controls {
     position: fixed;
-    bottom: 80px; /* Se ajusta a la parte inferior, encima de los botones de navegación */
-    left: 50%; /* Alineamos el contenedor al centro */
-    transform: translateX(-50%); /* Ajuste de centrado exacto */
+    bottom: 10%; /* Fijar los controles a una posición estática */
+    width: 100%;
     display: flex;
     justify-content: center;
-    gap: 20px;
-    z-index: 20;
+    align-items: center;
+    gap: 1rem;
+    margin: 0;
 }
 
-#controls .action-button {
-    padding: 14px 28px;
-    font-size: 18px;
-    background-color: #9b3a0d;
-    color: #fff;
+.control-button {
+    background: none;
     border: none;
-    border-radius: 5px;
     cursor: pointer;
+    width: var(--button-size);
+    height: var(--button-size);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease;
 }
 
-#controls .action-button:hover {
-    background-color: #6d3705;
+.control-button img {
+    width: 100%;
+    height: 100%;
 }
 
-#controls .action-button.play {
-    background-color: #9b3a0d;
+.control-button:hover {
+    transform: scale(1.1);
 }
 
-#controls .action-button.pause {
-    background-color: #103d68;
-}
+/* Responsividad */
+@media (max-width: 600px) {
+    .action-bar {
+        flex-direction: column;
+        height: auto;
+        padding: 1rem;
+    }
 
-#controls .action-button.play:hover {
-    background-color: #6d3705;
-}
+    .navigation-buttons {
+        padding: 0 1rem;
+    }
 
-#controls .action-button.pause:hover {
-    background-color: #0c2d49;
+    .audio-controls {
+        flex-direction: column;
+    }
 }
-

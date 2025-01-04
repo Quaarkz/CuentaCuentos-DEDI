@@ -1,75 +1,85 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Pagina menu de cuento">
-    <title>Pantalla de Cuento - La Cenicienta</title>
-    <link rel="stylesheet" href="css/csscuento.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content="Pantalla de Cuento - La Cenicienta">
+    <title>La Cenicienta</title>
+
+    <!-- Enlace al CSS -->
+    <link rel="stylesheet" href="css/infocuento.css">
+
+    <!-- Fuentes -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
 </head>
 <body>
-    <button id="invisibleLeer" onclick="location.href='lectura.html?action=leer'" aria-label="Ir a leer libro"></button>
-    <button id="invisibleEscuchar" onclick="location.href='lectura.html?action=escuchar'" aria-label="Ir a escuchar libro"></button>
     <!-- Header -->
     <header class="header">
-        <a href="index.html" class="header-title">Volver a Inicio</a>
+        <a href="index.html" class="header-title">Cuentacuentos</a>
     </header>
+
     <main>
-        
-        <div class="story-container">
-            <!-- Primera Columna -->
-            <div class="column story-info">
-                <h1 class="story-title">La Cenicienta</h1>
-                <img src="media/cenicienta.jpg" alt="Imagen de La Cenicienta" class="story-image">
-            </div>
-
-            <!-- Segunda Columna -->
-            <div class="column story-details">
-                <div class="story-section">
-                    <h2>Sinopsis</h2>
-                    <p class="story-synopsis"> <!-- En el futuro parametrizar esto supongo-->
-                        La historia de La Cenicienta narra la vida de una joven que, tras perder a su madre 
-                        y ser maltratada por su madrastra y hermanastras, encuentra el amor verdadero con la 
-                        ayuda de su Hada Madrina. Con un vestido encantado y un par de zapatos de cristal, 
-                        asiste al baile del príncipe, donde la magia la transforma y permite que viva una 
-                        noche inolvidable.
-                    </p>
-                </div>
-                
-                
-                <div class="story-section">
-                    <h2>Información</h2>
-                    <div class="author-info">
-                        <div class="author-text">
-                            <p><strong>Autor:</strong> Charles Perrault</p>
-                            <p><strong>Biografía:</strong> Charles Perrault (París, 12 de enero de 1628-16 de mayo de 1703) 
-                                fue un escritor francés, principalmente reconocido por haber dado forma literaria a cuentos 
-                                clásicos infantiles como Piel de asno, Pulgarcito, Barba Azul, La Cenicienta, La bella durmiente, 
-                                Caperucita Roja y El Gato con Botas, atemperando en muchos casos la crudeza de las versiones orales, 
-                                la mayoría de sus cuentos son infantiles y de fantasía.</p>
-                        </div>
-                        <img src="media/Cenicienta-Autor.jpeg" alt="Imagen del autor" class="author-image">
-                    </div>
-                </div>
-                <div class="story-section">
-                    <div class="duration-header">
-                        <h2>Duración</h2>
-                        <span class="duration-text">120 min</span>
-                    </div>
-                    <div class="duration-bar">
-                        <div class="duration-fill"></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Tercera Columna -->
-            <div class="column story-actions">
-                <label for="botonLeer" hidden>Leer cuento</label>
-                <a href="lectura.html?action=leer" class="action-button read" id="botonLeer">Ir a leer Cuento</a>
-                <label for="botonEscuchar" hidden>Ir a escuchar cuento</label>
-                <a href="lectura.html?action=escuchar" class="action-button listen" id="botonEscuchar">Escuchar Cuento</a>
-            </div>
+        <!-- Cabecera del cuento -->
+        <div class="story-header">
+            <h1 class="story-title">La Cenicienta</h1>
         </div>
-        </main>
-    </body>
+
+        <!-- Contenedor principal -->
+        <section class="story-container">
+            <div class="story-content">
+
+                <!-- Imagen de la portada -->
+                <div class="story-image-wrapper">
+                    <img 
+                        src="media/cenicienta.jpg" 
+                        alt="Portada de La Cenicienta" 
+                        class="story-image"
+                    >
+                </div>
+
+                <!-- Detalles del cuento -->
+                <div class="story-details">
+                    <!-- Sinopsis -->
+                    <div class="story-section sinopsis">
+                        <h2 class="section-title">Sinopsis</h2>
+                        <p class="story-synopsis">
+                            Cenicienta es una joven bondadosa que vive bajo el mandato de su madrastra y hermanastras; 
+                            hasta que un día encuentra una oportunidad mágica para asistir al baile real, donde un encuentro inesperado podría cambiar su destino para siempre.
+                        </p>
+                    </div>
+
+                    <!-- Autor -->
+                    <div class="story-section autor">
+                        <h2 class="section-title">Autor</h2>
+                        <p class="author-info">
+                            Charles Perrault (1628-1703) fue un escritor francés que popularizó varios cuentos infantiles, incluida La Cenicienta.
+                        </p>
+                    </div>
+
+                    <!-- Dificultad -->
+                    <div class="story-section dificultad">
+                        <h2 class="section-title">Dificultad</h2>
+                        <div class="difficulty-stars">
+                            ★★☆☆☆
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Botones de acción -->
+                <div class="story-actions">
+                    <!-- Leer -->
+                    <a href="lectura.html?action=leer" class="btn btn-read">
+                        <img src="media/Book.png" alt="Leer La Cenicienta" class="action-icon">
+                    </a>
+
+                    <!-- Escuchar -->
+                    <a href="lectura.html?action=escuchar" class="btn btn-listen">
+                        <img src="media/Speaker.png" alt="Escuchar La Cenicienta" class="action-icon">
+                    </a>
+                </div>
+
+            </div>
+        </section>
+    </main>
+</body>
 </html>

@@ -6,82 +6,108 @@
     <meta name="description" content="Pagina lectura de cuento">
     <title>Lectura</title>
     <link rel="stylesheet" href="css/lectura.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Header principal -->
     <header class="header">
-        <a href="index.html" class="header-title">Volver a Inicio</a>
+        <a href="index.html" class="header-title">Cuentacuentos</a>
     </header>
-    <main>
-        <h1 id="page-title"></h1>
-        <div id="description-container" style="position: relative; display: inline-block;">
-            <p id="description">Aquí tienes la historia de Cenicienta:</p>
-            <img id="speaking-icon" src="media/speaking.png" alt="Speaking Icon" style="display: none;">
-        </div>
-        
-        <div id="story-content"></div>
-        <div id="escuchar-container" style="position: relative;">
-            <div id="texto-contenedor"></div>
-            <div id="controls">
-                <button id="btnPlay" class="action-button play">Comenzar a escuchar</button>
-                <button id="btnPause" class="action-button pause">Pausar</button>
-            </div>
-        </div>        
 
-        <div id="navigation-buttons">
-            <button id="prev-button" disabled>Atrás</button>
-            <button id="next-button" disabled>Siguiente</button>
+    <!-- Barra de acción -->
+    <div id="action-bar" class="action-bar">
+        <!-- Izquierda: Estado actual -->
+        <div id="mode-indicator" class="mode-indicator">
+            <img id="mode-icon" src="media/Book.png" alt="Modo Leyendo">
+            <span id="mode-text">Leyendo...</span>
+        </div>
+
+        <!-- Centro: Título del cuento -->
+        <a href="cuento.html" id="story-title" class="story-title">La Cenicienta</a>
+
+        <!-- Derecha: Botón de cambio de modo -->
+        <button id="toggle-mode" class="toggle-mode">
+            <img id="toggle-icon" src="media/Speaker.png" alt="Cambiar a Escuchar">
+        </button>
+    </div>
+
+    <!-- Contenido principal -->
+    <main>
+        <div id="story-content" class="story-content">
+            <!-- Texto del cuento cargado dinámicamente -->
+        </div>
+
+        <!-- Botones de navegación -->
+        <div id="navigation-buttons" class="navigation-buttons">
+            <button id="prev-button" class="nav-button" disabled>
+                <img src="media/prev-arrow.png" alt="Anterior">
+            </button>
+            <button id="next-button" class="nav-button" disabled>
+                <img src="media/next-arrow.png" alt="Siguiente">
+            </button>
         </div>
     </main>
+
+    <!-- Controles para el modo Escuchar -->
+    <div id="audio-controls" class="audio-controls" style="display: none;">
+        <button id="btnPause" class="control-button">
+            <img src="media/pause-icon.png" alt="Pausar">
+        </button>
+        <button id="btnPlay" class="control-button">
+            <img src="media/play-icon.png" alt="Reproducir">
+        </button>
+    </div>
 
     <script>
         const params = new URLSearchParams(window.location.search);
         const action = params.get('action');
 
-        const pageTitle = document.getElementById('page-title');
-        const description = document.getElementById('description');
+        const modeIndicator = document.getElementById('mode-indicator');
+        const modeIcon = document.getElementById('mode-icon');
+        const modeText = document.getElementById('mode-text');
+        const toggleModeButton = document.getElementById('toggle-mode');
+        const toggleIcon = document.getElementById('toggle-icon');
         const storyContent = document.getElementById('story-content');
         const prevButton = document.getElementById('prev-button');
         const nextButton = document.getElementById('next-button');
-        const escucharContainer = document.getElementById('escuchar-container');
-        const textoContenedor = document.getElementById('texto-contenedor');
-        const navigationContainer = document.getElementById('navigation-buttons');
+        const audioControls = document.getElementById('audio-controls');
+        const playButton = document.getElementById('btnPlay');
+        const pauseButton = document.getElementById('btnPause');
+
         let storyLines = [];
         let currentIndex = 0;
         let utterance = null;
 
-        // Cargar las voces disponibles
-        function loadVoices() {
-            return new Promise(resolve => {
-                const voices = speechSynthesis.getVoices();
-                if (voices.length > 0) {
-                    resolve(voices);
-                } else {
-                    speechSynthesis.onvoiceschanged = () => resolve(speechSynthesis.getVoices());
-                }
-            });
-        }
+        // Función para cambiar entre modos
+        const toggleMode = () => {
+            if (action === 'leer') {
+                window.location.href = 'lectura.html?action=escuchar';
+            } else {
+                window.location.href = 'lectura.html?action=leer';
+            }
+        };
+
+        toggleModeButton.addEventListener('click', toggleMode);
 
         if (action === 'leer') {
-            pageTitle.textContent = "Lectura del Cuento";
-            description.textContent = "Aquí tienes la historia de Cenicienta:";
-            escucharContainer.style.display = 'none';
+            modeIcon.src = 'media/Book.png';
+            modeText.textContent = 'Leyendo...';
+            toggleIcon.src = 'media/Speaker.png';
+            audioControls.style.display = 'none';
 
             fetch('books/Cenicienta.txt')
                 .then(response => response.text())
                 .then(data => {
-                    storyLines = data.split('\n').filter(line => line.trim() !== ''); // Filtrar líneas vacías
+                    storyLines = data.split('\n').filter(line => line.trim() !== '');
                     showLine();
-                })
-                .catch(error => {
-                    storyContent.textContent = 'Error al cargar el cuento. Por favor, inténtalo más tarde.';
-                    console.error(error);
                 });
 
-            function showLine() {
+            const showLine = () => {
                 storyContent.textContent = storyLines[currentIndex];
                 prevButton.disabled = currentIndex === 0;
                 nextButton.disabled = currentIndex === storyLines.length - 1;
-            }
+            };
 
             prevButton.addEventListener('click', () => {
                 if (currentIndex > 0) {
@@ -91,110 +117,55 @@
             });
 
             nextButton.addEventListener('click', () => {
-                description.style.display = "none"
                 if (currentIndex < storyLines.length - 1) {
                     currentIndex++;
                     showLine();
                 }
             });
-        }
-        else if (action === 'escuchar') {
-            pageTitle.textContent = "Escucha del Cuento";
-            description.textContent = "Aquí tienes la historia de Cenicienta:";
-            navigationContainer.style.display = 'none';
-
-            const speakingIcon = document.getElementById('speaking-icon');
+        } else if (action === 'escuchar') {
+            modeIcon.src = 'media/Speaker.png';
+            modeText.textContent = 'Escuchando...';
+            toggleIcon.src = 'media/Book.png';
+            audioControls.style.display = 'flex';
 
             fetch('books/Cenicienta.txt')
                 .then(response => response.text())
-                .then(async data => {
+                .then(data => {
                     storyLines = data.split('\n').filter(line => line.trim() !== '');
-                    currentIndex = 0;
-                    textoContenedor.textContent = storyLines[currentIndex];
-                    const voices = await loadVoices();
+                    playLine();
+                });
 
-                    let utterance = null;
+            const playLine = () => {
+                if (currentIndex < storyLines.length) {
+                    utterance = new SpeechSynthesisUtterance(storyLines[currentIndex]);
+                    utterance.lang = 'es-ES';
 
-                    const playLine = () => {
+                    utterance.onend = () => {
+                        currentIndex++;
                         if (currentIndex < storyLines.length) {
-                            utterance = new SpeechSynthesisUtterance(storyLines[currentIndex]);
-                            utterance.lang = "es-ES";
-                            utterance.voice = voices.find(voice => voice.name === 'Microsoft Elvira Online (Natural) - Spanish (Spain)') 
-                                || voices.find(voice => voice.lang === 'es-ES') || voices[0];
-
-                            textoContenedor.textContent = storyLines[currentIndex];
-
-                            utterance.onstart = () => {
-                                speakingIcon.style.display = 'block'; // Mostrar el icono al iniciar
-                            };
-
-                            utterance.onend = () => {
-                                //speakingIcon.style.display = 'none'; 
-                                //Ocultar el icono al finalizar pero tambien se oculta al final de cada linea
-                                currentIndex++;
-                                if (currentIndex < storyLines.length) {
-                                    playLine();
-                                } else {
-                                    textoContenedor.textContent = "Lectura finalizada.";
-                                }
-                            };
-
-                            speechSynthesis.speak(utterance);
+                            playLine();
+                        } else {
+                            storyContent.textContent = 'Lectura finalizada.';
                         }
                     };
 
-                    document.getElementById('btnPlay').addEventListener('click', () => {
-                        if (speechSynthesis.speaking) {
-                            speechSynthesis.cancel();
-                        }
-                        playLine();
-                    });
+                    speechSynthesis.speak(utterance);
+                    storyContent.textContent = storyLines[currentIndex];
+                }
+            };
 
-                    document.getElementById('btnPause').addEventListener('click', () => {
-                        if (speechSynthesis.speaking) {
-                            if (speechSynthesis.paused) {
-                                speechSynthesis.resume();
-                                speakingIcon.style.display = 'block'; // Mostrar el icono al reanudar
-                            } else {
-                                speechSynthesis.pause();
-                                speakingIcon.style.display = 'none'; // Ocultar el icono al pausar
-                            }
-                        }
-                    });
-                })
-                .catch(error => {
-                    textoContenedor.textContent = 'Error al cargar el texto. Por favor, inténtalo más tarde.';
-                    console.error(error);
-                });
-        }
-
-        else {
-            pageTitle.textContent = "Página de Lectura";
-            description.textContent = "Elige si deseas leer o escuchar el cuento:";
-            escucharContainer.style.display = 'none';
-            prevButton.style.display = 'none';
-            nextButton.style.display = 'none';
-
-            const buttonContainer = document.createElement('div');
-            buttonContainer.id = 'choice-buttons';
-
-            const readButton = document.createElement('button');
-            readButton.textContent = 'Leer Cuento';
-            readButton.classList.add('action-button', 'read');
-            readButton.addEventListener('click', () => {
-                window.location.href = 'lectura.html?action=leer';
+            playButton.addEventListener('click', () => {
+                if (speechSynthesis.speaking) {
+                    speechSynthesis.cancel();
+                }
+                playLine();
             });
 
-            const listenButton = document.createElement('button');
-            listenButton.textContent = 'Escuchar Cuento';
-            listenButton.classList.add('action-button', 'listen');
-            listenButton.addEventListener('click', () => {
-                window.location.href = 'lectura.html?action=escuchar';
+            pauseButton.addEventListener('click', () => {
+                if (speechSynthesis.speaking) {
+                    speechSynthesis.cancel();
+                }
             });
-
-            buttonContainer.appendChild(readButton);
-            buttonContainer.appendChild(listenButton);
-            description.after(buttonContainer);
         }
     </script>
 </body>
