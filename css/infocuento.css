@@ -78,6 +78,113 @@ body {
 }
 
 /* ================================
+   DISEÑO PRINCIPAL DE TRES COLUMNAS
+=============================== */
+.story-layout {
+  display: flex; /* Flexbox para crear las columnas */
+  justify-content: space-between; /* Espacio proporcional entre columnas */
+  gap: 2%; /* Espaciado entre las columnas basado en el ancho de la pantalla */
+  margin: 1.5rem auto;
+  max-width: 1200px; /* Ancho máximo para centrar contenido */
+}
+
+.story-column {
+  display: flex;
+  flex-direction: column; /* Los elementos dentro de cada columna se apilan verticalmente */
+  align-items: center; /* Alinea elementos horizontalmente al centro */
+  gap: 1rem; /* Espacio entre elementos dentro de cada columna */
+}
+
+/* ================================
+   PROPORCIONES DE LAS COLUMNAS
+=============================== */
+.portada {
+  flex: 3; /* La portada ocupa 3/12 del espacio total (aproximadamente 25%) */
+}
+
+.info {
+  flex: 5; /* La información ocupa 5/12 del espacio total (aproximadamente 40%) */
+}
+
+.acciones {
+  flex: 2; /* Los botones ocupan 2/12 del espacio total (aproximadamente 15-20%) */
+}
+
+/* ================================
+   ESTILOS DE LOS ELEMENTOS DENTRO
+=============================== */
+
+/* Imagen de la portada */
+.portada .story-image {
+  width: 100%; /* La imagen ocupa el ancho completo de la columna */
+  height: auto; /* Mantiene la proporción */
+  border-radius: var(--radius); /* Bordes redondeados */
+  border: 3px solid var(--card-border); /* Borde negro */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+/* Sección de información (texto) */
+.info .story-section {
+  width: 100%; /* Asegura que las secciones ocupen todo el ancho disponible */
+  padding: 1rem;
+  border-radius: var(--radius); /* Bordes redondeados */
+  background-color: var(--sinopsis-bg); /* Fondo según la sección */
+}
+
+.info .autor {
+  background-color: var(--autor-bg);
+}
+
+.info .dificultad {
+  background-color: var(--dificultad-bg);
+  text-align: center;
+}
+
+.difficulty-stars {
+  font-size: 1.5rem;
+}
+
+/* ================================
+   ESTILOS PARA LA COLUMNA DE BOTONES
+=============================== */
+.acciones .btn {
+  width: 100%; /* Botones ocupan todo el ancho de la columna */
+  max-width: none; /* Eliminamos el tamaño máximo para ampliar los botones */
+  height: 150px; /* Botones más altos */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: var(--border-size) solid var(--card-border); /* Borde negro */
+  border-radius: 0.5rem; /* Bordes redondeados */
+  transition: transform 0.2s ease-in-out;
+}
+
+.acciones .btn:hover {
+  transform: scale(1.05); /* Efecto de zoom suave en hover */
+}
+
+.btn-read {
+  background-color: var(--btn-read-bg); /* Naranja para "Leer" */
+}
+
+.btn-listen {
+  background-color: var(--btn-listen-bg); /* Azul original para "Escuchar" */
+}
+
+/* Iconos dentro de los botones */
+.acciones .action-icon {
+  width: 40%; /* Iconos más grandes proporcionalmente */
+  height: auto;
+}
+
+/* ================================
+   ESPACIADO GLOBAL
+=============================== */
+.story-layout .story-column > * {
+  margin-bottom: 1rem; /* Espacio entre elementos dentro de las columnas */
+}
+
+/* ================================
    CONTENEDOR PRINCIPAL
 =============================== */
 .story-container {
@@ -134,14 +241,82 @@ body {
   font-size: 1.2rem;
 }
 
+/* ================================
+   ESTILOS PARA LA SECCIÓN DE AUTOR
+=============================== */
+.author-container {
+  display: flex;
+  justify-content: space-between; /* Imagen a la derecha */
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap; /* Permite que los elementos se reorganicen en pantallas pequeñas */
+}
+
+.author-info {
+  flex: 1; /* Texto ocupa el espacio restante */
+  font-size: 1.2rem;
+  color: #fff;
+  line-height: 1.4;
+  text-align: justify; /* Mejora la alineación del texto */
+}
+
+.author-image {
+  flex: 0 0 180px; /* Tamaño fijo */
+  aspect-ratio: 3/4; /* Mantiene la proporción 9:16 */
+  overflow: hidden;
+  border: 3px solid #000;
+  border-radius: 15px; /* Esquinas redondeadas */
+}
+
+.author-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Asegura que la imagen se ajuste perfectamente */
+}
+
+/* Para pantallas pequeñas */
+@media (max-width: 600px) {
+  .author-container {
+    flex-direction: column; /* Imagen debajo del texto */
+    align-items: center;
+    text-align: center; /* Centra el contenido */
+  }
+
+  .author-image {
+    flex: 0 0 100px; /* Imagen más pequeña */
+    height: auto; /* Mantiene proporción */
+  }
+}
+
+
 .dificultad {
   background-color: var(--dificultad-bg);
   font-size: 1.2rem;
+  display: flex;
+  justify-content: flex-start; /* Alinea los elementos al inicio de la sección */
+  align-items: center; /* Alinea verticalmente el contenido */
 }
+
+.difficulty-container {
+  display: flex;
+  justify-content: space-between; /* Coloca el título a la izquierda y las estrellas a la derecha */
+  align-items: center; /* Alinea verticalmente el contenido */
+  width: 100%; /* Asegura que ocupe todo el ancho de la sección */
+  padding: 0 1rem; /* Espaciado interno para que no queden pegados a los bordes */
+}
+
+.difficulty-stars {
+  font-size: 1.5rem; /* Ajusta el tamaño de las estrellas */
+  color: #fff;
+  text-align: right; /* Asegura que las estrellas se alineen correctamente a la derecha */
+}
+
 
 .section-title {
   font-family: var(--font-title);
   margin-bottom: 0.5rem;
+  -webkit-text-stroke: 1px #000; /* Añade un borde negro al texto */
+  color: var(--btn-text); /* Mantiene el color blanco dentro del stroke */
 }
 
 .story-synopsis,
@@ -149,9 +324,6 @@ body {
   margin: 0;
 }
 
-.difficulty-stars {
-  font-size: 1.5rem;
-}
 
 /* ================================
    BOTONES

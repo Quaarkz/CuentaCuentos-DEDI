@@ -25,59 +25,63 @@
         </div>
 
         <!-- Contenedor principal -->
-        <section class="story-container">
-            <div class="story-content">
+        <section class="story-layout">
+            <!-- Columna 1: Portada -->
+            <div class="story-column portada">
+                <img 
+                    src="media/cenicienta.jpg" 
+                    alt="Portada de La Cenicienta" 
+                    class="story-image"
+                >
+            </div>
 
-                <!-- Imagen de la portada -->
-                <div class="story-image-wrapper">
-                    <img 
-                        src="media/cenicienta.jpg" 
-                        alt="Portada de La Cenicienta" 
-                        class="story-image"
-                    >
+            <!-- Columna 2: Información -->
+            <div class="story-column info">
+                <!-- Sinopsis -->
+                <div class="story-section sinopsis">
+                    <h2 class="section-title">Sinopsis</h2>
+                    <p class="story-synopsis">
+                        Cenicienta es una joven bondadosa que vive bajo el mandato de su madrastra y hermanastras; 
+                        hasta que un día encuentra una oportunidad mágica para asistir al baile real, donde un encuentro inesperado podría cambiar su destino para siempre.
+                    </p>
                 </div>
 
-                <!-- Detalles del cuento -->
-                <div class="story-details">
-                    <!-- Sinopsis -->
-                    <div class="story-section sinopsis">
-                        <h2 class="section-title">Sinopsis</h2>
-                        <p class="story-synopsis">
-                            Cenicienta es una joven bondadosa que vive bajo el mandato de su madrastra y hermanastras; 
-                            hasta que un día encuentra una oportunidad mágica para asistir al baile real, donde un encuentro inesperado podría cambiar su destino para siempre.
-                        </p>
+                <!-- Autor -->
+                <div class="story-section autor">
+                    <h2 class="section-title">Autor</h2>
+                    <div class="author-container">
+                        <div class="author-info">
+                            <p>Charles Perrault nació en París, Francia, en 1628. Fue un escritor que convirtió cuentos mágicos en historias inolvidables para niños. ¿Sabías que escribió muchos de sus cuentos pensando en entretener a los hijos del rey Luis XIV?</p>
+                        </div>
+                        <div class="author-image">
+                            <img src="media/Cenicienta-Autor.jpeg" alt="Foto del Autor">
+                        </div>
                     </div>
+                </div>
 
-                    <!-- Autor -->
-                    <div class="story-section autor">
-                        <h2 class="section-title">Autor</h2>
-                        <p class="author-info">
-                            Charles Perrault (1628-1703) fue un escritor francés que popularizó varios cuentos infantiles, incluida La Cenicienta.
-                        </p>
-                    </div>
-
-                    <!-- Dificultad -->
-                    <div class="story-section dificultad">
+                <!-- Dificultad -->
+                <div class="story-section dificultad">
+                    <div class="difficulty-container">
                         <h2 class="section-title">Dificultad</h2>
                         <div class="difficulty-stars">
                             ★★☆☆☆
                         </div>
                     </div>
                 </div>
+                
+            </div>
+            
+            <!-- Columna 3: Botones -->
+            <div class="story-column acciones">
+                <!-- Botón Leer -->
+                <a href="lectura.html?action=leer" class="btn btn-read">
+                    <img src="media/Book.png" alt="Leer La Cenicienta" class="action-icon">
+                </a>
 
-                <!-- Botones de acción -->
-                <div class="story-actions">
-                    <!-- Leer -->
-                    <a href="lectura.html?action=leer" class="btn btn-read">
-                        <img src="media/Book.png" alt="Leer La Cenicienta" class="action-icon">
-                    </a>
-
-                    <!-- Escuchar -->
-                    <a href="lectura.html?action=escuchar" class="btn btn-listen">
-                        <img src="media/Speaker.png" alt="Escuchar La Cenicienta" class="action-icon">
-                    </a>
-                </div>
-
+                <!-- Botón Escuchar -->
+                <a href="lectura.html?action=escuchar" class="btn btn-listen">
+                    <img src="media/Speaker.png" alt="Escuchar La Cenicienta" class="action-icon">
+                </a>
             </div>
         </section>
     </main>
