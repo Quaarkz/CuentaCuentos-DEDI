@@ -1,208 +1,359 @@
-/* Reset básico */
+/* ================================
+   RESET BÁSICO
+=============================== */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     text-decoration: none;
-}
-
-/* Variables globales */
-:root {
+  }
+  
+  /* ================================
+     VARIABLES DE ESTILO
+  =============================== */
+  :root {
     --header-bg: #289BFF;
     --header-text: #fff;
-    --bar-read-bg: #FA7C43;
-    --bar-listen-bg: #63A59D;
-    --btn-bg: #FFBF00;
-    --btn-hover-opacity: 0.8;
-    --text-color: #000;
-    --font-family-title: 'Fredoka One', sans-serif;
-    --font-family-body: Arial, sans-serif;
-    --button-size: 48px;
-    --content-max-width: 80%;
-    --text-large: 32px;
-    --radius: 1rem;
-    --background-image: url('media/backgroundPrueba.png');
-}
-
-/* Estilo de fondo global */
-body {
-    background-image: var(--background-image);
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-attachment: fixed;
-}
-
-/* Header principal */
-.header {
+    --btn-read-bg: #FA7C43; /* Naranja para modo leer */
+    --btn-listen-bg: #63A59D; /* Azul para modo escuchar */
+    --title-bg: #FFBF00; /* Amarillo para el título */
+    --action-bar-text: #000;
+    --font-title: 'Fredoka One', sans-serif;
+    --radius: 0.5rem; /* Bordes redondeados */
+    --border-size: 3px;
+    --card-border: #000;
+    --btn-hover-bg: #1a7de8;
+    --btn-disabled-bg: #ccc;
+    --content-bg: #fff;
+    --content-border: #ddd;
+    --content-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    --navigation-text: #fff;
+    --slider-bg: #ddd;
+    --slider-thumb: #63A59D;
+  }
+  
+  /* ================================
+     BODY Y FUENTES
+  =============================== */
+  html {
+    font-size: 20px; /* Aumentado para mejor legibilidad */
+    color: var(--action-bar-text);
+    font-family: Arial, sans-serif;
+  }
+  
+  body {
+    background-color: #fefefe;
+    line-height: 1.6;
+    margin: 0;
+  }
+  
+  /* ================================
+     HEADER PRINCIPAL
+  =============================== */
+  .header {
     background-color: var(--header-bg);
     padding: 1rem;
     text-align: center;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 10;
-}
-
-.header-title {
+  }
+  
+  .header-title {
     color: var(--header-text);
-    text-decoration: none;
     font-size: 2.2rem;
     font-weight: bold;
-}
-
-/* Barra de acción */
-.action-bar {
+  }
+  
+  /* ================================
+     BARRA DE ACCIÓN
+  =============================== */
+  .action-bar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem; /* Igual que el título del cuento */
-    background-color: var(--bar-read-bg); /* Cambiar dinámicamente */
-    margin-top: 4rem;
-    transition: background-color 0.3s ease;
+    padding: 1rem;
+    position: relative;
+  }
+  
+  /* Modo Lectura: Naranja */
+  .action-bar--leer {
+    background-color: var(--btn-read-bg);
+  }
+  
+  /* Modo Escuchar: Azul */
+  .action-bar--escuchar {
+    background-color: var(--btn-listen-bg);
+  }
+  
+  /* Título del cuento como botón amarillo */
+  .story-title {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.8rem; /* Tamaño restaurado */
+    color: var(--action-bar-text);
+    text-align: center;
+    background-color: var(--title-bg);
+    border: var(--border-size) solid #000;
     border-radius: var(--radius);
-}
-
-.action-bar.listen {
-    background-color: var(--bar-listen-bg);
-}
-
-.mode-indicator {
+    padding: 0.3rem 0.6rem; /* Tamaño restaurado */
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .story-title:hover {
+    transform: translateX(-50%) scale(1.05);
+  }
+  
+  /* Estilos para el indicador de modo */
+  .mode-indicator {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    color: var(--text-color);
-    font-family: var(--font-family-title);
-    font-size: 1.5rem; /* Ajustado al tamaño del título */
-}
-
-.mode-indicator img {
-    width: 24px;
-    height: 24px;
-}
-
-.story-title {
-    font-family: var(--font-family-title);
-    font-size: 1.5rem;
-    color: var(--text-color);
-    background-color: var(--btn-bg);
-    padding: 1rem; /* Igual que el banner */
+    font-size: 1.4rem;
+  }
+  
+  .mode-indicator img {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .mode-text {
+    font-size: 1.9rem;
+  }
+  
+  /* Estilos para el botón de cambio de modo */
+  .toggle-mode {
+    width: 70px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: var(--border-size) solid #000;
     border-radius: var(--radius);
-    text-decoration: none;
-    text-align: center;
-    transition: opacity 0.3s ease;
-}
-
-.story-title:hover {
-    opacity: var(--btn-hover-opacity);
-}
-
-.toggle-mode {
-    background: none;
-    border: none;
+    background-color: var(--btn-listen-bg);
     cursor: pointer;
-}
-
-.toggle-mode img {
-    width: 24px;
-    height: 24px;
-}
-
-/* Contenido principal */
-.story-content {
-    text-align: center;
-    font-family: var(--font-family-body);
-    font-size: var(--text-large);
-    line-height: 1.5;
+    transition: transform 0.2s ease-in-out, background-color 0.2s;
+  }
+  
+  .toggle-mode--leer {
+    background-color: var(--btn-read-bg);
+  }
+  
+  .toggle-mode--escuchar {
+    background-color: var(--btn-listen-bg);
+  }
+  
+  .toggle-mode:hover {
+    transform: scale(1.05);
+  }
+  
+  .toggle-mode img {
+    max-width: 60%;
+    height: auto;
+  }
+  
+  /* ================================
+     CONTENIDO PRINCIPAL
+  =============================== */
+  .story-content {
+    max-width: 800px;
     margin: 2rem auto;
-    max-width: var(--content-max-width);
     padding: 1rem;
-}
-
-/* Botones de navegación */
-.navigation-buttons {
+    font-size: 1.5rem; /* Aumentado para mejor legibilidad */
+    line-height: 1.8;
+    text-align: justify;
+    background-color: var(--content-bg);
+    border: 2px solid var(--content-border);
+    border-radius: var(--radius);
+    box-shadow: var(--content-box-shadow);
+  }
+  
+  /* ================================
+     CONTROLES DE AJUSTE DE FUENTE
+  =============================== */
+  .font-size-control {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 1rem auto;
+    max-width: 800px;
+  }
+  
+  .font-size-control label {
+    font-size: 1rem;
+  }
+  
+  .font-size-control input[type="range"] {
+    width: 100%;
+    appearance: none;
+    height: 8px;
+    border-radius: 5px;
+    background: var(--slider-bg);
+    outline: none;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+  }
+  
+  .font-size-control input[type="range"]:hover {
+    opacity: 1;
+  }
+  
+  .font-size-control input[type="range"]::-webkit-slider-thumb {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--slider-thumb);
+    cursor: pointer;
+  }
+  
+  .font-size-control input[type="range"]::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--slider-thumb);
+    cursor: pointer;
+  }
+  
+  /* ================================
+     BOTONES DE NAVEGACIÓN
+  =============================== */
+  .navigation-buttons {
     position: fixed;
-    bottom: 20%; /* Fijar las flechas a una posición estática */
+    bottom: 20px;
     width: 100%;
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    padding: 0 2rem;
-}
-
-.nav-button {
-    background: none;
-    border: none;
+    padding: 0 20px;
+    opacity: 1; /* Visible por defecto */
+    transition: opacity 0.3s ease;
+    pointer-events: auto;
+  }
+  
+  /* Se ocultarán las flechas en modo escuchar */
+  .action-bar--escuchar ~ .navigation-buttons {
+    opacity: 0.3; /* Disminuido para indicar no disponible */
+    pointer-events: none; /* Deshabilitado */
+  }
+  
+  .nav-button {
+    background-color: var(--title-bg);
+    color: var(--navigation-text);
+    border: var(--border-size) solid #000;
+    padding: 1rem;
+    border-radius: var(--radius);
     cursor: pointer;
-    width: var(--button-size);
-    height: var(--button-size);
+    transition: transform 0.2s ease-in-out;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: transform 0.2s ease;
-}
-
-.nav-button img {
-    width: 100%;
-    height: 100%;
-}
-
-.nav-button:hover {
+  }
+  
+  .nav-button:hover {
     transform: scale(1.1);
-}
-
-.nav-button:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-}
-
-/* Controles de audio */
-.audio-controls {
+  }
+  
+  .nav-button img {
+    width: 30px;
+    height: 30px;
+  }
+  
+  /* ================================
+     CONTROLES DE AUDIO
+  =============================== */
+  .audio-controls {
     position: fixed;
-    bottom: 10%; /* Fijar los controles a una posición estática */
-    width: 100%;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%);
     display: flex;
-    justify-content: center;
-    align-items: center;
     gap: 1rem;
-    margin: 0;
-}
-
-.control-button {
-    background: none;
-    border: none;
+  }
+  
+  .control-button {
+    background-color: var(--title-bg);
+    color: var(--navigation-text);
+    border: var(--border-size) solid #000;
+    padding: 1rem;
+    border-radius: var(--radius);
     cursor: pointer;
-    width: var(--button-size);
-    height: var(--button-size);
+    transition: transform 0.2s ease-in-out;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: transform 0.2s ease;
-}
-
-.control-button img {
-    width: 100%;
-    height: 100%;
-}
-
-.control-button:hover {
+  }
+  
+  .control-button:hover {
     transform: scale(1.1);
-}
-
-/* Responsividad */
-@media (max-width: 600px) {
-    .action-bar {
-        flex-direction: column;
-        height: auto;
-        padding: 1rem;
+  }
+  
+  .control-button img {
+    width: 30px;
+    height: 30px;
+  }
+  
+  /* ================================
+     RESPONSIVE DESIGN
+  =============================== */
+  @media (max-width: 768px) {
+    .story-title {
+      font-size: 1.5rem;
     }
-
-    .navigation-buttons {
-        padding: 0 1rem;
+  
+    .mode-indicator img {
+      width: 25px;
+      height: 25px;
     }
-
-    .audio-controls {
-        flex-direction: column;
+  
+    .mode-text {
+      font-size: 1.2rem;
     }
-}
+  
+    .toggle-mode {
+      width: 40px;
+      height: 40px;
+    }
+  
+    .toggle-mode img {
+      max-width: 50%;
+    }
+  
+    .nav-button img,
+    .control-button img {
+      width: 25px;
+      height: 25px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .story-title {
+      font-size: 1.2rem;
+    }
+  
+    .mode-indicator img {
+      width: 20px;
+      height: 20px;
+    }
+  
+    .mode-text {
+      font-size: 1rem;
+    }
+  
+    .toggle-mode {
+      width: 35px;
+      height: 35px;
+    }
+  
+    .toggle-mode img {
+      max-width: 45%;
+    }
+  
+    .nav-button img,
+    .control-button img {
+      width: 20px;
+      height: 20px;
+    }
+  }
+  

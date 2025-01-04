@@ -23,13 +23,19 @@
             <span id="mode-text">Leyendo...</span>
         </div>
 
-        <!-- Centro: Título del cuento -->
+        <!-- Centro: Título del cuento como botón -->
         <a href="cuento.html" id="story-title" class="story-title">La Cenicienta</a>
 
         <!-- Derecha: Botón de cambio de modo -->
-        <button id="toggle-mode" class="toggle-mode">
+        <button id="toggle-mode" class="toggle-mode" aria-label="Cambiar modo">
             <img id="toggle-icon" src="media/Speaker.png" alt="Cambiar a Escuchar">
         </button>
+    </div>
+
+    <!-- Controles de ajuste de fuente -->
+    <div class="font-size-control">
+        <label for="font-size-slider">Tamaño de fuente:</label>
+        <input type="range" id="font-size-slider" min="1" max="3" step="0.1" aria-label="Ajustar tamaño de fuente">
     </div>
 
     <!-- Contenido principal -->
@@ -37,32 +43,33 @@
         <div id="story-content" class="story-content">
             <!-- Texto del cuento cargado dinámicamente -->
         </div>
-
-        <!-- Botones de navegación -->
-        <div id="navigation-buttons" class="navigation-buttons">
-            <button id="prev-button" class="nav-button" disabled>
-                <img src="media/prev-arrow.png" alt="Anterior">
-            </button>
-            <button id="next-button" class="nav-button" disabled>
-                <img src="media/next-arrow.png" alt="Siguiente">
-            </button>
-        </div>
     </main>
+
+    <!-- Botones de navegación -->
+    <div id="navigation-buttons" class="navigation-buttons">
+        <button id="prev-button" class="nav-button" disabled aria-label="Página anterior">
+            <img src="media/prev-arrow.png" alt="Anterior">
+        </button>
+        <button id="next-button" class="nav-button" disabled aria-label="Página siguiente">
+            <img src="media/next-arrow.png" alt="Siguiente">
+        </button>
+    </div>
 
     <!-- Controles para el modo Escuchar -->
     <div id="audio-controls" class="audio-controls" style="display: none;">
-        <button id="btnPause" class="control-button">
+        <button id="btnPause" class="control-button" aria-label="Pausar">
             <img src="media/pause-icon.png" alt="Pausar">
         </button>
-        <button id="btnPlay" class="control-button">
+        <button id="btnPlay" class="control-button" aria-label="Reproducir">
             <img src="media/play-icon.png" alt="Reproducir">
         </button>
     </div>
 
     <script>
         const params = new URLSearchParams(window.location.search);
-        const action = params.get('action');
+        const action = params.get('action') || 'leer';
 
+        const actionBar = document.getElementById('action-bar');
         const modeIndicator = document.getElementById('mode-indicator');
         const modeIcon = document.getElementById('mode-icon');
         const modeText = document.getElementById('mode-text');
@@ -74,12 +81,38 @@
         const audioControls = document.getElementById('audio-controls');
         const playButton = document.getElementById('btnPlay');
         const pauseButton = document.getElementById('btnPause');
+        const fontSizeSlider = document.getElementById('font-size-slider');
 
         let storyLines = [];
         let currentIndex = 0;
         let utterance = null;
 
-        // Función para cambiar entre modos
+        // Aplicar estilos según el modo
+        const applyModeStyles = () => {
+            if (action === 'leer') {
+                actionBar.classList.add('action-bar--leer');
+                actionBar.classList.remove('action-bar--escuchar');
+                toggleModeButton.classList.remove('toggle-mode--escuchar');
+                toggleModeButton.classList.add('toggle-mode--leer');
+                modeIcon.src = 'media/Book.png';
+                modeText.textContent = 'Leyendo...';
+                toggleIcon.src = 'media/Speaker.png';
+                audioControls.style.display = 'none';
+            } else if (action === 'escuchar') {
+                actionBar.classList.add('action-bar--escuchar');
+                actionBar.classList.remove('action-bar--leer');
+                toggleModeButton.classList.remove('toggle-mode--leer');
+                toggleModeButton.classList.add('toggle-mode--escuchar');
+                modeIcon.src = 'media/Speaker.png';
+                modeText.textContent = 'Escuchando...';
+                toggleIcon.src = 'media/Book.png';
+                audioControls.style.display = 'flex';
+            }
+        };
+
+        applyModeStyles();
+
+        // Cambiar de modo
         const toggleMode = () => {
             if (action === 'leer') {
                 window.location.href = 'lectura.html?action=escuchar';
@@ -90,12 +123,28 @@
 
         toggleModeButton.addEventListener('click', toggleMode);
 
-        if (action === 'leer') {
-            modeIcon.src = 'media/Book.png';
-            modeText.textContent = 'Leyendo...';
-            toggleIcon.src = 'media/Speaker.png';
-            audioControls.style.display = 'none';
+        // Ajuste de tamaño de fuente
+        const loadFontSize = () => {
+            const savedSize = localStorage.getItem('fontSize');
+            if (savedSize) {
+                storyContent.style.fontSize = savedSize + 'rem';
+                fontSizeSlider.value = savedSize;
+            } else {
+                storyContent.style.fontSize = '1.5rem';
+                fontSizeSlider.value = 1.5;
+            }
+        };
 
+        loadFontSize();
+
+        fontSizeSlider.addEventListener('input', (e) => {
+            const size = e.target.value;
+            storyContent.style.fontSize = size + 'rem';
+            localStorage.setItem('fontSize', size);
+        });
+
+        // Navegación entre páginas
+        if (action === 'leer') {
             fetch('books/Cenicienta.txt')
                 .then(response => response.text())
                 .then(data => {
@@ -123,11 +172,6 @@
                 }
             });
         } else if (action === 'escuchar') {
-            modeIcon.src = 'media/Speaker.png';
-            modeText.textContent = 'Escuchando...';
-            toggleIcon.src = 'media/Book.png';
-            audioControls.style.display = 'flex';
-
             fetch('books/Cenicienta.txt')
                 .then(response => response.text())
                 .then(data => {
@@ -167,6 +211,46 @@
                 }
             });
         }
+
+        // Soporte de teclado
+        document.addEventListener('keydown', (e) => {
+            // Atajos de teclado
+            if (e.target.tagName.toLowerCase() !== 'input') { // Evitar conflictos con el slider
+                switch(e.key) {
+                    case ' ':
+                        e.preventDefault();
+                        if (action === 'escuchar') {
+                            if (speechSynthesis.speaking) {
+                                speechSynthesis.cancel();
+                            } else {
+                                playLine();
+                            }
+                        }
+                        break;
+                    case 'ArrowLeft':
+                        if (action === 'leer' && !prevButton.disabled) {
+                            prevButton.click();
+                        }
+                        break;
+                    case 'ArrowRight':
+                        if (action === 'leer' && !nextButton.disabled) {
+                            nextButton.click();
+                        }
+                        break;
+                }
+            }
+        });
+
+        // Feedback visual para navegación con teclado
+        const buttons = document.querySelectorAll('button');
+        buttons.forEach(button => {
+            button.addEventListener('focus', () => {
+                button.style.boxShadow = '0 0 0 3px #FFBF00';
+            });
+            button.addEventListener('blur', () => {
+                button.style.boxShadow = 'none';
+            });
+        });
     </script>
 </body>
 </html>

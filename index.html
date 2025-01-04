@@ -6,51 +6,45 @@
     <title>Cuentacuentos</title>
     <link rel="stylesheet" href="css/index.css">
 
-    <!-- Fuentes -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <header class="header">
+    <!-- Header -->
+    <header class="header" role="banner">
         <a href="index.html" class="header-title">Cuentacuentos</a>
     </header>
 
-    <main>
-
-        <section class="intro">
-            <h2>¿Qué quieres leer hoy?</h2>
+    <main role="main">
+        <!-- Sección Intro -->
+        <section class="intro" role="region" aria-labelledby="intro-title">
+            <h2 id="intro-title">¿Qué quieres leer hoy?</h2>
         </section>
 
         <!-- Biblioteca -->
-        <section class="library">
-
+        <section class="library" aria-label="Biblioteca de Cuentos">
             <!-- La Cenicienta -->
-            <article class="story-card">
-
+            <article class="story-card" role="article" aria-labelledby="story-title-1">
                 <!-- Título -->
-                <a href="cuento.html" class="story-card__header-link">
+                <a href="cuento.html" class="story-card__header-link" aria-label="Ir a la página de La Cenicienta">
                     <header class="story-card__header">
-                        <h3 class="story-card__title">La Cenicienta</h3>
+                        <h3 class="story-card__title" id="story-title-1">La Cenicienta</h3>
                     </header>
                 </a>
             
                 <!-- Botones + Póster -->
                 <div class="story-card__content">
-            
                     <!-- Leer y Escuchar (versión con enlaces) -->
                     <div class="story-card__actions">
-                        <a href="lectura.html?action=leer" class="btn btn--read">
+                        <a href="lectura.html?action=leer" class="btn btn--read" aria-label="Leer La Cenicienta" role="button" tabindex="0">
                             <img 
                                 src="media/Book.png" 
-                                alt="Leer"
+                                alt="Leer La Cenicienta"
                             >
                         </a>
-                        <a href="lectura.html?action=escuchar" class="btn btn--listen">
+                        <a href="lectura.html?action=escuchar" class="btn btn--listen" aria-label="Escuchar La Cenicienta" role="button" tabindex="0">
                             <img 
                                 src="media/Speaker.png" 
-                                alt="Escuchar"
+                                alt="Escuchar La Cenicienta"
                             >
                         </a>
                     </div>
@@ -58,49 +52,45 @@
                     <!-- Póster del cuento + enlace de "Saber más..." -->
                     <div class="story-card__poster-wrapper">
                         <div class="story-card__poster">
-
                             <!-- Envolver la imagen en un <a> con la misma URL que Saber más -->
-                            <a href="cuento.html">
+                            <a href="cuento.html" aria-label="Ver más información sobre La Cenicienta">
                                 <img 
                                     src="media/cenicienta.jpg" 
                                     alt="Portada del cuento 'La Cenicienta'" 
                                     class="story-card__image"
                                 >
                             </a>
-                            <a href="cuento.html" class="story-card__more">
+                            <a href="cuento.html" class="story-card__more" aria-label="Saber más sobre La Cenicienta">
                                 Saber más...
                             </a>
                         </div>
                     </div>
-                    
                 </div>
             </article>
 
             <!-- La Cenicienta (2) -->
-            <article class="story-card">
-
+            <article class="story-card" role="article" aria-labelledby="story-title-2">
                 <!-- Título -->
-                <a href="cuento.html" class="story-card__header-link">
+                <a href="cuento.html" class="story-card__header-link" aria-label="Ir a la página de La Cenicienta">
                     <header class="story-card__header">
-                        <h3 class="story-card__title">La Cenicienta</h3>
+                        <h3 class="story-card__title" id="story-title-2">La Cenicienta</h3>
                     </header>
                 </a>
             
                 <!-- Botones + Póster -->
                 <div class="story-card__content">
-            
                     <!-- Leer y Escuchar (versión con enlaces) -->
                     <div class="story-card__actions">
-                        <a href="lectura.html?action=leer" class="btn btn--read">
+                        <a href="lectura.html?action=leer" class="btn btn--read" aria-label="Leer La Cenicienta" role="button" tabindex="0">
                             <img 
                                 src="media/Book.png" 
-                                alt="Leer"
+                                alt="Leer La Cenicienta"
                             >
                         </a>
-                        <a href="lectura.html?action=escuchar" class="btn btn--listen">
+                        <a href="lectura.html?action=escuchar" class="btn btn--listen" aria-label="Escuchar La Cenicienta" role="button" tabindex="0">
                             <img 
                                 src="media/Speaker.png" 
-                                alt="Escuchar"
+                                alt="Escuchar La Cenicienta"
                             >
                         </a>
                     </div>
@@ -108,49 +98,45 @@
                     <!-- Póster del cuento + enlace de "Saber más..." -->
                     <div class="story-card__poster-wrapper">
                         <div class="story-card__poster">
-
                             <!-- Envolver la imagen en un <a> con la misma URL que Saber más -->
-                            <a href="cuento.html">
+                            <a href="cuento.html" aria-label="Ver más información sobre La Cenicienta">
                                 <img 
                                     src="media/cenicienta.jpg" 
                                     alt="Portada del cuento 'La Cenicienta'" 
                                     class="story-card__image"
                                 >
                             </a>
-                            <a href="cuento.html" class="story-card__more">
+                            <a href="cuento.html" class="story-card__more" aria-label="Saber más sobre La Cenicienta">
                                 Saber más...
                             </a>
                         </div>
                     </div>
-                    
                 </div>
             </article>
 
             <!-- La Cenicienta (3) -->
-            <article class="story-card">
-
+            <article class="story-card" role="article" aria-labelledby="story-title-3">
                 <!-- Título -->
-                <a href="cuento.html" class="story-card__header-link">
+                <a href="cuento.html" class="story-card__header-link" aria-label="Ir a la página de La Cenicienta">
                     <header class="story-card__header">
-                        <h3 class="story-card__title">La Cenicienta</h3>
+                        <h3 class="story-card__title" id="story-title-3">La Cenicienta</h3>
                     </header>
                 </a>
             
                 <!-- Botones + Póster -->
                 <div class="story-card__content">
-            
                     <!-- Leer y Escuchar (versión con enlaces) -->
                     <div class="story-card__actions">
-                        <a href="lectura.html?action=leer" class="btn btn--read">
+                        <a href="lectura.html?action=leer" class="btn btn--read" aria-label="Leer La Cenicienta" role="button" tabindex="0">
                             <img 
                                 src="media/Book.png" 
-                                alt="Leer"
+                                alt="Leer La Cenicienta"
                             >
                         </a>
-                        <a href="lectura.html?action=escuchar" class="btn btn--listen">
+                        <a href="lectura.html?action=escuchar" class="btn btn--listen" aria-label="Escuchar La Cenicienta" role="button" tabindex="0">
                             <img 
                                 src="media/Speaker.png" 
-                                alt="Escuchar"
+                                alt="Escuchar La Cenicienta"
                             >
                         </a>
                     </div>
@@ -158,28 +144,23 @@
                     <!-- Póster + "Saber más..." -->
                     <div class="story-card__poster-wrapper">
                         <div class="story-card__poster">
-
-                            <a href="cuento.html">
+                            <a href="cuento.html" aria-label="Ver más información sobre La Cenicienta">
                                 <img 
                                     src="media/cenicienta.jpg" 
                                     alt="Portada del cuento 'La Cenicienta'" 
                                     class="story-card__image"
                                 >
                             </a>
-                            <a href="cuento.html" class="story-card__more">
+                            <a href="cuento.html" class="story-card__more" aria-label="Saber más sobre La Cenicienta">
                                 Saber más...
                             </a>
                         </div>
                     </div>
-                
                 </div>
             </article>
             
-            <!-- Repite <article> para otros cuentos si hace falta -->
-
+            <!-- Repetiríamos <article> para cada cuento que queramos añadir a la biblioteca -->
         </section> <!-- / .library -->
-    
     </main>
-
 </body>
 </html>

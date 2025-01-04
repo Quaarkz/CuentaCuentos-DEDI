@@ -14,32 +14,35 @@
 :root {
   --header-bg: #289BFF;
   --header-text: #fff;
-  --title-bg: #FFBF00;
+  --btn-read-bg: #FA7C43; /* Naranja para botón Leer */
+  --btn-listen-bg: #63A59D; /* Azul para botón Escuchar */
+  --title-bg: #FFBF00; /* Amarillo para el título */
   --title-text: #000;
-  --sinopsis-bg: #7FBE2C;
+  --sinopsis-bg: #72AB28;
   --autor-bg: #4C70FF;
   --dificultad-bg: #FF686A;
-  --btn-read-bg: #FA7C43;
-  --btn-listen-bg: #63A59D;
   --btn-text: #fff;
-  --font-title: 'Fredoka One', sans-serif;
+  --font-family: Arial, sans-serif; /* Fuente eliminada 'Fredoka One' */
   --radius: 1rem;
   --border-size: 3px;
   --card-border: #000;
+  --content-bg: #fff;
+  --content-border: #ddd;
+  --content-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* ================================
    BODY Y FUENTES
 =============================== */
 html {
-  font-size: 18px;
+  font-size: 20px; /* Aumentado para mejor legibilidad */
   color: var(--title-text);
-  font-family: Arial, sans-serif;
+  font-family: var(--font-family);
 }
 
 body {
   background-color: #fefefe;
-  line-height: 1.4;
+  line-height: 1.6;
   margin: 0;
 }
 
@@ -50,6 +53,7 @@ body {
   background-color: var(--header-bg);
   padding: 1rem;
   text-align: center;
+  role: banner; /* ARIA Role para el header */
 }
 
 .header-title {
@@ -69,8 +73,8 @@ body {
 }
 
 .story-title {
-  font-family: var(--font-title);
   margin: 0;
+  color: var(--title-text);
 }
 
 /* ================================
@@ -114,7 +118,7 @@ body {
   height: auto;
   border-radius: var(--radius);
   border: 3px solid var(--card-border);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--content-box-shadow);
 }
 
 .info .story-section {
@@ -122,28 +126,31 @@ body {
   padding: 1rem;
   border-radius: var(--radius);
   background-color: var(--sinopsis-bg);
+  border: 2px solid var(--card-border);
 }
 
 .info .autor {
   background-color: var(--autor-bg);
+  border: 2px solid var(--card-border);
 }
 
 .info .dificultad {
   background-color: var(--dificultad-bg);
   text-align: center;
+  border: 2px solid var(--card-border);
 }
 
 .difficulty-stars {
   font-size: 1.5rem;
+  color: var(--btn-text);
 }
 
 /* ================================
    ESTILOS PARA LA COLUMNA DE BOTONES
 =============================== */
 .acciones .btn {
-  width: 100%;
-  max-width: none;
-  height: 150px;
+  width: 80%;
+  height: auto;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -174,22 +181,6 @@ body {
 =============================== */
 .story-layout .story-column > * {
   margin-bottom: 1rem;
-}
-
-/* ================================
-   CONTENEDOR PRINCIPAL
-=============================== */
-.story-container {
-  max-width: 1000px;
-  margin: 1.5rem auto;
-  padding: 1rem;
-}
-
-.story-content {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  justify-content: space-between;
 }
 
 /* ================================
@@ -225,12 +216,10 @@ body {
 
 .sinopsis {
   background-color: var(--sinopsis-bg);
-  font-size: 1.2rem;
 }
 
 .autor {
   background-color: var(--autor-bg);
-  font-size: 1.2rem;
 }
 
 /* ================================
@@ -246,9 +235,7 @@ body {
 
 .author-info {
   flex: 1;
-  font-size: 1.2rem;
   color: #fff;
-  line-height: 1.4;
   text-align: justify;
 }
 
@@ -281,10 +268,10 @@ body {
 
 .dificultad {
   background-color: var(--dificultad-bg);
-  font-size: 1.2rem;
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  border: 2px solid var(--card-border);
 }
 
 .difficulty-container {
@@ -296,15 +283,12 @@ body {
 }
 
 .difficulty-stars {
-  font-size: 1.5rem;
-  color: #fff;
+  font-size: 1.4rem;
+  color: #000;
   text-align: right;
 }
 
 .section-title {
-  font-family: var(--font-title);
-  margin-bottom: 0.5rem;
-  -webkit-text-stroke: 1px #000;
   color: var(--btn-text);
 }
 
@@ -329,8 +313,8 @@ body {
   background-color: var(--btn-read-bg);
   color: var(--btn-text);
   border: var(--border-size) solid var(--card-border);
-  border-radius: 0.5rem;
-  font-family: var(--font-title);
+  border-radius: var(--radius);
+  font-family: var(--font-family);
   font-size: 1.3rem;
   text-align: center;
   cursor: pointer;
@@ -355,4 +339,24 @@ body {
 .action-icon {
   max-width: 60%;
   height: auto;
+}
+
+/* ================================
+   ACCESIBILIDAD
+=============================== */
+:focus {
+  outline: 3px solid #FFBF00; /* Feedback visual para enfoque */
+  outline-offset: 2px;
+}
+
+.btn,
+a.btn {
+  /* Asegurar que los botones sean accesibles */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+a.btn {
+  cursor: pointer;
 }
