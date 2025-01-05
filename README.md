@@ -75,16 +75,16 @@ Aunque actualmente es un prototipo, **Cuentacuentos** está diseñado con una ar
 
 ## 🎨 Diseño final
 
-![Página Principal](media/screenshot-index.png)
+![Página Principal](media/figma/Index.png)
 *Vista de la página principal de Cuentacuentos.*
 
-![Información Cuento](media/screenshot-index.png)
+![Información Cuento](media/figma/InfoCuento.png)
 *Vista de la página de información de un cuento concreto.*
 
-![Modo de Lectura](media/screenshot-lectura.png)
+![Modo de Lectura](media/figma/LeerCuento.png)
 *Ejemplo del modo de lectura.*
 
-![Modo de Escucha](media/screenshot-escucha.png)
+![Modo de Escucha](media/figma/EscucharCuento.png)
 *Ejemplo del modo de escucha.*
 
 ## 📝 Contribuciones
