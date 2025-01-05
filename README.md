@@ -123,7 +123,11 @@ Cada modificación o ajuste que realices no solo nos ayudará a mejorar nuestro 
 
 ## 📝 Licencia
 
-¡Sorpresa! No hay licencia. Tus aportaciones son más que bienvenidas para nuestro proyecto. Ganas tú, gano yo, ganamos todos.
+¡Sorpresa! No hay licencia. 
+
+Bueno si que la hay pero es la licencia MIT, es decir, que puedes hacer prácticamente lo que quieras con el proyecto sin ningún tipo de problema. Puedes echarle un vistazo al archivo [LICENSE](LICENSE) para más detalles.
+
+Tus aportaciones son más que bienvenidas para nuestro proyecto. Ganas tú, gano yo, ganamos todos.
 
 ¡No tengas miedo y lánzate a contribuir! Juntos, podemos hacer que la lectura y la narración de cuentos sean accesibles y mágicas para todo el mundo.
 
