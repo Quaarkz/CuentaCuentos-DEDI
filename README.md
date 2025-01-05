@@ -129,4 +129,6 @@ Cada modificación o ajuste que realices no solo nos ayudará a mejorar nuestro 
 
 ## 📫 Contacto
 
-Para cualquier consulta o sugerencia, puedes contactarnos en [rcabezali.inf@upsa.es](mailto:rcabezali.inf@upsa.es).
+Para cualquier consulta o sugerencia, puedes contactarnos por aquí:
+- Rafa: [rcabezali.inf@upsa.es](mailto:rcabezali.inf@upsa.es)
+- David: [dfernandezca.inf@upsa.es](mailto:dfernandezca.inf@upsa.es)
